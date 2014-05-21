@@ -1,0 +1,48 @@
+\documentclass[11pt,twoside]{uwthesis}
+
+\usepackage{biblatex}
+\usepackage{amssymb,amsmath}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{epstopdf}
+\usepackage{boxedminipage}
+
+\usepackage[unicode=true,
+            colorlinks=true,
+            linkcolor=blue]{hyperref}
+
+
+\bibliography{refs}
+
+
+\begin{document}
+
+% preliminary pages
+%
+\prelimpages
+\include{prelim}
+
+% text pages
+%
+\textpages
+\include{chap-introduction}
+\include{chap-software-review}
+\include{chap-graphene}
+\include{chap-tidal}
+\include{chap-macau}
+\include{chap-workspaces}   
+\include{chap-distributed-simulation}
+\include{chap-education}
+\include{chap-summary}
+
+% bibliography
+%
+\printbibliography[title=References]
+% appendices
+%
+\appendix
+% \include{appendix-graphene-logo}
+% \include{appendix-software-availability}
+
+\end{document}

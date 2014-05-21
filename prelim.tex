@@ -1,0 +1,108 @@
+%
+% ----- copyright and title pages
+%
+\Title{Carbon.js: A Modern Toolkit for Building Web Applications for Systems Biology}
+\Author{Stanley Gu}
+\Year{2014}
+\Program{UW Bioengineering}
+
+\Chair{Herbert M. Sauro}{Associate Professor}{Department of Bioengineering}
+\Signature{James B. Bassingthwaighte}
+\Signature{Daniel L. Cook}
+\Signature{Thomas Hazlet}
+\Signature{Rick James}
+
+\copyrightpage
+
+% \titlepage  
+
+% --- sample stuff only -----
+% unusual footnote not found in a real thesis
+% You just use the \titlepage as commented out above
+
+{\Degreetext{General Examination \\
+  submitted in partial fulfillment of the\\ requirements for the degree of}
+ \def\thefootnote{\fnsymbol{footnote}}
+ \let\footnoterule\relax
+ \titlepage
+ }
+\setcounter{footnote}{0}
+
+% --- end-of-sample-stuff ---
+ 
+%
+% ----- signature and quoteslip are gone
+%
+
+%
+% ----- abstract
+%
+
+
+\setcounter{page}{-1}
+\abstract{%
+
+This sample dissertation is an aid to students who are attempting
+to format their theses with \LaTeX, a sophisticated
+text formatter widely available at the University of Washington
+and other institutions of higher learning.
+ 
+\begin{itemize}
+\item It describes the use of a specialized
+macro package developed specifically for thesis production
+at the University.
+The macros customize \LaTeX\ for the correct thesis style,
+allowing the student to concentrate on the substance of
+his or her text.%
+\footnote{See Appendix A to obtain the source to this
+ thesis and the style file.}
+\item It demonstrates the solutions to a variety of
+formatting challenges found in thesis production.
+\item It serves as a template for a real dissertation.
+\end{itemize}
+}
+ 
+%
+% ----- contents & etc.
+%
+\tableofcontents
+\listoffigures
+%\listoftables  % I have no tables
+ 
+%
+% ----- glossary 
+%
+\chapter*{Glossary}      % starred form omits the `chapter x'
+\addcontentsline{toc}{chapter}{Glossary}
+\thispagestyle{plain}
+%
+\begin{glossary}
+\item[Angular.js]
+\item[Canvas]
+\item[D3.js]
+\item[DOM] 
+\item[AJAX]
+\item[HTML]
+\item[HTML5]
+\item[SVG]
+
+\end{glossary}
+ 
+%
+% ----- acknowledgments
+%
+\acknowledgments{% \vskip2pc
+  % {\narrower\noindent
+  The author wishes to express sincere appreciation to the
+  University of Washington and the Department of Bioengineering.
+  % \par}
+}
+
+%
+% ----- dedication
+%
+\dedication{\begin{center}
+
+%to my dear wife, Joanna
+
+\end{center}}

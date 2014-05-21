@@ -1,0 +1,55 @@
+\chapter{Graphene.js: Building Reusuable Web Components for Data Visualization}
+
+\section{Purpose}
+
+\section{Motivation}
+
+\subsection{Shortcomings of current methods}
+
+Cytoscape Web (\url{http://cytoscapeweb.cytoscape.org/})
+
+Cytoscape.js (\url{http://cytoscape.github.io/cytoscape.js}) is a graph drawing library and a potential choice for network visualization. It contains an impressive HTML5 Canvas based rendering engine, but currently lacks the ability to customize the following:
+
+\begin{itemize}
+\item Color gradients for nodes
+\item Marker ends and node shapes beyond a predefined set
+\item Control points for Bezier curves
+\item Placement of edge start and end points
+\end{itemize}
+
+Furthermore, since Cytoscape.js produces a canvas drawing and not DOM elements, the graph elements are unable to be used with other JavaScript libraries (for example a popover plugin that acts on each node) nor bound to custom events.
+
+\section{Solution}
+
+Graphene.js (\url{https://github.com/stanleygu/graphene}) addresses these issues by using a different approach. 
+Graphene creates interactive diagrams through two-way-binding of user provided data objects to a customizable SVG template.
+Thus, no custom rendering engine is required as it is performed by the browser, and the rich SVG vocabulary (which may be created through a text editor or through a graphical SVG drawing program) may be used to define nearly any type of edge, arrow marker, or Bezier curve.
+Graphene templates may also be customized for visualizations beyond node-edge graphs, such as charts and animations.
+
+\subsection{Modular Web Components}
+
+\subsubsection{SVG vs. HTML Canvas}
+
+\subsection{Single Page Web Applications}
+
+declarative programming should be used for building user interfaces and wiring software components, while imperative programming is excellent for expressing business logic
+
+Decouple DOM manipulation from application logic. This improves the testability of the code.
+Regard application testing as equal in importance to application writing. Testing difficulty is dramatically affected by the way the code is structured.
+Decouple the client side of an application from the server side. This allows development work to progress in parallel, and allows for reuse of both sides.
+Guide developers through the entire journey of building an application: from designing the UI, through writing the business logic, to testing.
+Angular follows the MVC pattern of software engineering and encourages loose coupling between presentation, data, and logic components. Using dependency injection, Angular brings traditional server-side services, such as view-dependent controllers, to client-side web applications. Consequently, much of the burden on the backend is reduced, leading to much lighter web applications.
+
+\subsection{Data-Binding}
+
+\section{Implementation}
+
+\subsection{Data-Binding}
+
+\subsubsection{Angular.js}
+
+\subsection{SVG Manipulation}
+
+\subsubsection{D3.js}
+
+\section{Summary}
