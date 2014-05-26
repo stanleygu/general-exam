@@ -26,8 +26,12 @@ gulp.task('default', function() {
   });
 
   child.on('close', function(code) {
-    gutil.log('Done with exit code', code);
-    gutil.log('You access complete stdout and stderr from here'); // stdout, stderr
+    if (code > 0) {
+      gutil.log('Done with exit code', gutil.colors.red(code));
+      gutil.beep();
+    } else {
+      gutil.log('Done with exit code', code);
+    }
   });
 
 });
