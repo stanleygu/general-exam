@@ -40,7 +40,21 @@ Decouple the client side of an application from the server side. This allows dev
 Guide developers through the entire journey of building an application: from designing the UI, through writing the business logic, to testing.
 Angular follows the MVC pattern of software engineering and encourages loose coupling between presentation, data, and logic components. Using dependency injection, Angular brings traditional server-side services, such as view-dependent controllers, to client-side web applications. Consequently, much of the burden on the backend is reduced, leading to much lighter web applications.
 
-\subsection{Data-Binding}
+\subsection{Data-binding over DOM manipulation}
+
+\begin{lstlisting}[language=JavaScript]
+$.ajax({
+  url: '/myEndpoint.json',
+  success: function ( data, status ) {
+    $('ul#log').append('<li>Data Received!</li>');
+  }
+});
+\end{lstlisting}
+
+\begin{lstlisting}[language=html]
+<ul class="messages" id="log">
+</ul>
+\end{lstlisting}
 
 
 \section{Implementation}
