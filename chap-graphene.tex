@@ -2,13 +2,17 @@
 
 \section{Purpose}
 
+The purpose of this chapter is to introduce Graphene.js \autocite{gu2014graphene}, a framework for creating data-driven visualizations, and to contrast its different approach to visualization compared to the traditional drawing libraries. Graphene is a core technology 
+
 \section{Motivation}
 
 \subsection{Shortcomings of current methods}
 
-Cytoscape Web (\url{http://cytoscapeweb.cytoscape.org/})
+Raphael.js \autocite{sencha2014raphael}
 
-Cytoscape.js (\url{http://cytoscape.github.io/cytoscape.js}) is a graph drawing library and a potential choice for network visualization. It contains an impressive HTML5 Canvas based rendering engine, but currently lacks the ability to customize the following:
+Cytoscape Web \autocite{cytoscape2014web}
+
+Cytoscape.js \autocite{cytoscape2014js} is a graph drawing library and a potential choice for network visualization. It contains an impressive HTML5 Canvas based rendering engine, but currently lacks the ability to customize the following:
 
 \begin{itemize}
 \item Color gradients for nodes
@@ -21,14 +25,12 @@ Furthermore, since Cytoscape.js produces a canvas drawing and not DOM elements, 
 
 \section{Solution}
 
-Graphene.js (\url{https://github.com/stanleygu/graphene}) addresses these issues by using a different approach. 
+Graphene.js addresses these issues by using a different approach. 
 Graphene creates interactive diagrams through two-way-binding of user provided data objects to a customizable SVG template.
 Thus, no custom rendering engine is required as it is performed by the browser, and the rich SVG vocabulary (which may be created through a text editor or through a graphical SVG drawing program) may be used to define nearly any type of edge, arrow marker, or Bezier curve.
 Graphene templates may also be customized for visualizations beyond node-edge graphs, such as charts and animations.
 
 \subsection{Modular Web Components}
-
-\subsubsection{SVG vs. HTML Canvas}
 
 \subsection{Single Page Web Applications}
 
@@ -40,7 +42,7 @@ Decouple the client side of an application from the server side. This allows dev
 Guide developers through the entire journey of building an application: from designing the UI, through writing the business logic, to testing.
 Angular follows the MVC pattern of software engineering and encourages loose coupling between presentation, data, and logic components. Using dependency injection, Angular brings traditional server-side services, such as view-dependent controllers, to client-side web applications. Consequently, much of the burden on the backend is reduced, leading to much lighter web applications.
 
-\subsection{Data-binding over DOM manipulation}
+\subsection{Declarative vs. Imperative: Data-binding over DOM manipulation}
 
 \begin{lstlisting}[language=JavaScript]
 $.ajax({
@@ -56,11 +58,31 @@ $.ajax({
 </ul>
 \end{lstlisting}
 
+\begin{lstlisting}[language=JavaScript]
+$http( '/myEndpoint.json' ).then( function ( response ) {
+  $scope.log.push( { msg: 'Data Received!' } );
+});
+\end{lstlisting}
+
+\begin{lstlisting}[language=html]
+<ul class="messages">
+  <li ng-repeat="entry in log">{{ entry.msg }}</li>
+</ul>
+\end{lstlisting}
+
+\begin{lstlisting}[language=html]
+<div class="messages">
+  <div class="alert" ng-repeat="entry in log">
+    {{ entry.msg }}
+  </div>
+</div>
+\end{lstlisting}
 
 \section{Implementation}
 \subsection{Data-Binding}
 \subsubsection{Angular.js}
 \subsection{SVG Manipulation}
 \subsubsection{D3.js}
+\subsection{Modular web components}
 
 \section{Summary}
