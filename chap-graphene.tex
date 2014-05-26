@@ -2,11 +2,26 @@
 
 \section{Purpose}
 
-The purpose of this chapter is to introduce Graphene.js \autocite{gu2014graphene}, a framework for creating data-driven visualizations, and to contrast its different approach to visualization compared to the traditional drawing libraries. Graphene is a core technology 
+The purpose of this chapter is to introduce Graphene.js \autocite{gu2014graphene}, a framework for creating data-driven visualizations and user interfaces.
+In addition, the Graphene.js approach to data visualization is contrasted to currently established JavaScript drawing libraries.
+Graphene is the key component of the user interface for all other applications described in this body of work.
 
 \section{Motivation}
 
-\subsection{Shortcomings of current methods}
+Graphical representations of information are valuable for presenting complex information quickly and clearly. \autocite{newsom2007public, smiciklas2012power}
+They can vastly improve comprehension by using graphics to enhance the human visual system’s ability to see patterns and trends. \autocite{heer2010tour, sears2007human}
+Meanwhile, the Internet and World Wide Web \autocite{berners2000weaving} has become perhaps the most powerful medium for information sharing. \autocite{bollacker1998citeseer, wilkinson2003motivations, page1999pagerank}
+Thus, with the advent of web apps, ushered in by HTML5, the web is indeed of graphical libraries that 
+
+\subsection{Systems biology software packages are built using web technologies is almost nonexistent}
+Of the 262 listed software packages in the SBML Software Guide \autocite{sbml2014software}, only 61 contain any type of web based features and only 1 uses can be considered a HTML5 web application.
+\subsection{Systems biology software is complex and building complex web applications is difficult}
+JQuery vs Angular
+\subsection{Existing drawing libraries are not suited for complex and customizable visualizations}
+A key component of a graphical computational systems biology software
+Good web design is also important.
+Better web designs increase user engagement and likelihood of revisiting. \autocite{rosen2004website}
+Flexible graphics libraries are allow for custom tailoring of design.
 
 Raphael.js \autocite{sencha2014raphael}
 
@@ -25,22 +40,11 @@ Furthermore, since Cytoscape.js produces a canvas drawing and not DOM elements, 
 
 \section{Solution}
 
+\subsection{Graphene.js allows for easily customizable and reusuable web diagrams}
 Graphene.js addresses these issues by using a different approach. 
 Graphene creates interactive diagrams through two-way-binding of user provided data objects to a customizable SVG template.
 Thus, no custom rendering engine is required as it is performed by the browser, and the rich SVG vocabulary (which may be created through a text editor or through a graphical SVG drawing program) may be used to define nearly any type of edge, arrow marker, or Bezier curve.
 Graphene templates may also be customized for visualizations beyond node-edge graphs, such as charts and animations.
-
-\subsection{Modular Web Components}
-
-\subsection{Single Page Web Applications}
-
-declarative programming should be used for building user interfaces and wiring software components, while imperative programming is excellent for expressing business logic
-
-
-Decouple DOM manipulation from application logic. This improves the testability of the code. Regard application testing as equal in importance to application writing. Testing difficulty is dramatically affected by the way the code is structured.
-Decouple the client side of an application from the server side. This allows development work to progress in parallel, and allows for reuse of both sides.
-Guide developers through the entire journey of building an application: from designing the UI, through writing the business logic, to testing.
-Angular follows the MVC pattern of software engineering and encourages loose coupling between presentation, data, and logic components. Using dependency injection, Angular brings traditional server-side services, such as view-dependent controllers, to client-side web applications. Consequently, much of the burden on the backend is reduced, leading to much lighter web applications.
 
 \subsection{Declarative vs. Imperative: Data-binding over DOM manipulation}
 
@@ -79,10 +83,8 @@ $http( '/myEndpoint.json' ).then( function ( response ) {
 \end{lstlisting}
 
 \section{Implementation}
-\subsection{Data-Binding}
-\subsubsection{Angular.js}
-\subsection{SVG Manipulation}
-\subsubsection{D3.js}
-\subsection{Modular web components}
+\subsection{Angular.js is used for data-binding}
+\subsection{D3.js is used for SVG manipulation}
+\subsection{Yeoman build chain allows for easy integration}
 
 \section{Summary}
