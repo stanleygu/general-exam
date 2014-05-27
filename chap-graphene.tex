@@ -28,7 +28,7 @@ Thus, HTML5 web applications are a compelling platform for biomodeling applicati
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth,natwidth=610,natheight=642]{images/web-app-deployment.png}
-  \caption{Market share client-side JavaScript libraries as of May 2014.}
+  \caption{Web applications solve the cross-platform problem.}
   \label{fig:web-app-deployment}
 \end{figure}
 
@@ -44,9 +44,9 @@ Scientific libraries that most biomodeling software depends on have been intende
 Furthermore, designing and implementing complex graphical user interfaces (GUIs) on the web is a nontrivial engineering challenge.
 As discussed in section~\ref{sec:html5} HTML was originally designed as a markup language for communicating static pages that contain text and limited amounts of media, while using CSS for styling.
 The rise of JavaScript support within browsers allowed web pages to evolve more interactive behaviors, leading eventually to the web applications of today.
-However, JavaScript was originally intended for simple scripts which manipulate the DOM, and this legacy has lead to challenges in scaling evermore complex JavaScript applications.
+However, JavaScript was originally intended for simple scripts which manipulate the DOM, and this legacy has lead to challenges in scaling increasingly complex JavaScript applications.
 
-\subsubsection{JavaScript code bases that follow DOM manipulation pattern are difficult to scale}
+\subsubsection{JavaScript code bases that treat the DOM as data model are difficult to scale}
 
 \begin{figure}
   \centering
@@ -57,18 +57,30 @@ However, JavaScript was originally intended for simple scripts which manipulate 
 
 By far, the most popular client-side JavaScript library is jQuery. \autocite{w3techs2014javascript}
 Of the 59.2\% of websites that contain JavaScript, JQuery is present in 93.8\% of them (Figure~\ref{fig:jquery-marketshare}).
+In web applications that primarily rely on JQuery, the most common design pattern is to treat the DOM as the data model (DOMAM).
+In DOMAM, controller logic acts on the DOM directly, creating, updating, and deleting DOM components when the application data model changes.
+DOMAM style applications are easy to implement for small applications, but as they grow larger and more complex, the lack of separating the model and view leads to difficulties for software maintenance and continued development.
+Section~\ref{sec:declarative-vs-imperative} provides more description and examples on the weaknesses of the DOMAM pattern, as it is perhaps easier to understand when compared to the alternative solution.
 
 \subsection{Most existing drawing libraries follow the jQuery DOM manipulation pattern and are less suited for complex and customizable visualizations}
-A key component of a graphical computational systems biology software
-Good web design is also important.
-Better web designs increase user engagement and likelihood of revisiting. \autocite{rosen2004website}
-Flexible graphics libraries allow for custom tailoring of design.
+A key component of GUI for computational systems biology application is in its bio-network graph layout.
+In order to reduce duplication of code effort and promote programming best practices, it is desirable to use a software library when solving recurring software problems.
+However, most JavaScript drawing libraries encourage the DOMAM pattern or lack customization options.
+Being able to customize the visual layout allows for greater design control of an application's UI. 
+Better web designs are important because it may increase user engagement and likelihood of revisiting. \autocite{rosen2004website}
 
-Raphael.js \autocite{sencha2014raphael}
 
-Cytoscape Web \autocite{cytoscape2014web}
+\section{Solution}
 
-Cytoscape.js \autocite{cytoscape2014js} is a graph drawing library and a potential choice for network visualization. It contains an impressive HTML5 Canvas based rendering engine, but currently lacks the ability to customize the following:
+\subsection{Graphene.js allows for easily customizable and reusuable web diagrams}
+Graphene.js addresses these issues by using a different approach.
+Graphene creates interactive diagrams through two-way-binding of the application data model to a customizable SVG template.
+Thus, no custom rendering engine is required as it is performed by the browser, and the rich SVG vocabulary (which may be created through a text editor or through a graphical SVG drawing program) may be used to define nearly any type of edge, arrow marker, or Bezier curve.
+Graphene templates may also be customized for visualizations beyond node-edge graphs, such as charts and animations.
+
+
+Cytoscape.js \autocite{cytoscape2014js} is a graph drawing library and a potential choice for network visualization. 
+It contains an impressive HTML5 Canvas based rendering engine, but currently lacks the ability to customize the following:
 
 \begin{itemize}
 \item Color gradients for nodes
@@ -77,26 +89,26 @@ Cytoscape.js \autocite{cytoscape2014js} is a graph drawing library and a potenti
 \item Placement of edge start and end points
 \end{itemize}
 
-Furthermore, since Cytoscape.js produces a canvas drawing and not DOM elements, the graph elements are unable to be used with other JavaScript libraries (for example a popover plugin that acts on each node) nor bound to custom events.
-
-\section{Solution}
-
-\subsection{Graphene.js allows for easily customizable and reusuable web diagrams}
-Graphene.js addresses these issues by using a different approach. 
-Graphene creates interactive diagrams through two-way-binding of user provided data objects to a customizable SVG template.
-Thus, no custom rendering engine is required as it is performed by the browser, and the rich SVG vocabulary (which may be created through a text editor or through a graphical SVG drawing program) may be used to define nearly any type of edge, arrow marker, or Bezier curve.
-Graphene templates may also be customized for visualizations beyond node-edge graphs, such as charts and animations.
+In addition, since Cytoscape.js produces a canvas drawing and not DOM elements, the graph elements are unable to be used with other JavaScript libraries (for example a popover plugin that acts on each node) nor bound to custom events.
+Cytoscape Web \autocite{cytoscape2014web} is a similar library, but is based on Adobe Flash, which limits its utility for cross platform deployment.
 
 \subsection{Declarative vs. Imperative: Data-binding over DOM manipulation}
+\label{sec:declarative-vs-imperative}
+
+Graphene uses Angular.js \autocite{google2014angular} to provide a Model-View-Controller \autocite{krasner1988description} interface for implementing layouts.
+Here we will discuss the differences between the DOMAM/jQuery pattern and Angular MVC approach, which will help explain the design decisions behind Graphene.
+Consider this jQuery example of fetching JSON data from an endpoing:
 
 \begin{lstlisting}[language=JavaScript]
 $.ajax({
-  url: '/myEndpoint.json',
-  success: function ( data, status ) {
+  url: '/myData.json',
+  success: function(data, status) {
     $('ul#log').append('<li>Data Received!</li>');
   }
 });
 \end{lstlisting}
+
+\texttt{\$.ajax} something something darkside
 
 \begin{lstlisting}[language=html]
 <ul class="messages" id="log">
@@ -123,9 +135,21 @@ $http( '/myEndpoint.json' ).then( function ( response ) {
 </div>
 \end{lstlisting}
 
+Raphael.js \autocite{sencha2014raphael}
+
+
+
+
+
+
+
+
 \section{Implementation}
 \subsection{Angular.js is used for data-binding}
 \subsection{D3.js is used for SVG manipulation}
 \subsection{Yeoman build chain allows for easy integration}
 
 \section{Future Directions}
+\autocite{w3c2014components}
+\autocite{w3c2014templating}
+\autocite{polymer2014templating}
