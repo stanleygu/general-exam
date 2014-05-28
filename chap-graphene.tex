@@ -108,24 +108,36 @@ $.ajax({
 });
 \end{lstlisting}
 
-\texttt{\$.ajax} something something darkside
+\texttt{\$.ajax} performs an asynchronous HTTP (Ajax) request, which accepts the location of the data endpoint as \texttt{url} and the callback function as \texttt{success}.
+Upon receiving data, we simply append a new \texttt{<li>} into the portion of the DOM that matches the \texttt{'ul\#log'} CSS selector string.
+Thus, the view may look something like this:
 
 \begin{lstlisting}[language=html]
 <ul class="messages" id="log">
 </ul>
 \end{lstlisting}
 
+Alternatively, the Angular approach to accomplishing this same task would look something like this:
+
 \begin{lstlisting}[language=JavaScript]
-$http( '/myEndpoint.json' ).then( function ( response ) {
+$http( '/myData.json' ).then( function ( response ) {
   $scope.log.push( { msg: 'Data Received!' } );
 });
 \end{lstlisting}
+
+With the corresponding view of:
 
 \begin{lstlisting}[language=html]
 <ul class="messages">
   <li ng-repeat="entry in log">{{ entry.msg }}</li>
 </ul>
 \end{lstlisting}
+
+The major difference in the Angular approach is that the callback function does not manipulate the DOM directly.
+The controller is only responsible for updating the data model, \texttt{\$scope.log}.
+Thus, the view, with the help of the \texttt{ng-repeat} directive, is reponsible for responding for updating itself to reflect changes in the model.
+Separation of concerns means that the controller logic has nothing to do with how the data is actually displayed, and the view will respond to the data regardless of where or how it was changed.
+For example, the view can be swapped out for the following without any need to change the controller logic.
 
 \begin{lstlisting}[language=html]
 <div class="messages">
@@ -135,10 +147,40 @@ $http( '/myEndpoint.json' ).then( function ( response ) {
 </div>
 \end{lstlisting}
 
+
+In comparing 
+
+\begin{figure}
+  \centering
+  \includegraphics[width=70px,natwidth=610,natheight=642]{images/graphene-simple-70x70.png}
+  \caption{A simple node-edge diagram.}
+  \label{fig:graphene-simple}
+\end{figure}
+
 Raphael.js \autocite{sencha2014raphael}
 
+\begin{lstlisting}[language=JavaScript]
+// Creates canvas 320 × 200 at element with id of 'canvas'
+var paper = Raphael('#canvas', 10, 50, 320, 200);
+
+// Creates circle at x = 50, y = 40, with radius 10
+var circle = paper.circle(50, 40, 10);
+
+// Sets the fill attribute of the circle to red (#f00)
+circle.attr("fill", "#f00");
+// Sets the stroke attribute of the circle to white
+circle.attr("stroke", "#fff");
+\end{lstlisting}
 
 
+
+
+\begin{lstlisting}[language=JavaScript]
+
+\end{lstlisting}
+
+\begin{lstlisting}[language=html]
+\end{lstlisting}
 
 
 
