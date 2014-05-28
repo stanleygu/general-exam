@@ -301,8 +301,17 @@ force
   .start();
 \end{lstlisting}
 
-\subsection{Yeoman build chain allows for easy integration}
+\subsection{Yeoman build chain allows for easy development and integration workflows}
 
+Graphene was developed with the Yeoman in order to follow best practices in web development, allow users to easily integrate Graphene within their own codebases, and promote modular design.
+Yeoman consist of the web development build tools: yo \autocite{yeoman2014yo}, grunt \autocite{alman2014grunt}, and bower \autocite{twitter2014bower}.
+yo consists of a number of community maintained and developed generators that scaffold out new applications, generate Grunt configurations and pulling in relevant Bower dependencies.
+Grunt is a task runner, used to build, preview, test, and deploy projects.
+Bower is a dependency management system, so developers no longer have to manually download and manage JavaScript packages.
+
+Many tutorial exist online in using these tools.
+New users can install Graphene with the simple command \texttt{bower install graphene}.
+For the developers and maintainers of Graphene, new versions can be tested and deployed to GitHub through the command \texttt{grunt dist}.
 
 \section{Future Directions}
 \autocite{w3c2014components}
