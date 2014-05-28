@@ -6,6 +6,8 @@ The purpose of this chapter is to introduce Graphene.js \autocite{gu2014graphene
 In addition, the Graphene.js approach to data visualization is contrasted to currently established JavaScript drawing libraries.
 Graphene is the key component of the user interface for all other applications described in this body of work.
 
+Graphene is open source and available on GitHub.
+
 \section{Motivation}
 
 Graphical representations of information are valuable for presenting complex information quickly and clearly. \autocite{newsom2007public, smiciklas2012power}
@@ -136,7 +138,8 @@ With the corresponding view of:
 The major difference in the Angular approach is that the callback function does not manipulate the DOM directly.
 The controller is only responsible for updating the data model, \texttt{\$scope.log}.
 Thus, the view, with the help of the \texttt{ng-repeat} directive, is reponsible for responding for updating itself to reflect changes in the model.
-Separation of concerns means that the controller logic has nothing to do with how the data is actually displayed, and the view will respond to the data regardless of where or how it was changed.
+The controller logic has nothing to do with how the data is actually displayed, and the view will respond to the data regardless of where or how it was changed.
+By following Separation of Concerns, a design principle for creating modular programs, the result is simplified development and maintenance.
 For example, the view can be swapped out for the following without any need to change the controller logic.
 
 \begin{lstlisting}[language=html]
@@ -147,49 +150,159 @@ For example, the view can be swapped out for the following without any need to c
 </div>
 \end{lstlisting}
 
-
-In comparing 
+Similarly, Graphene brings the Separation of Concerns pattern to drawing on the web.
+Consider how one must use the drawing API of a well established drawing library, Raphael.js. \autocite{sencha2014raphael} in creating a simple node-edge diagram (Figure~\ref{fig:graphene-simple}).
 
 \begin{figure}
   \centering
   \includegraphics[width=70px,natwidth=610,natheight=642]{images/graphene-simple-70x70.png}
-  \caption{A simple node-edge diagram.}
+  \caption{A simple node-edge graph diagram.}
   \label{fig:graphene-simple}
 \end{figure}
 
-Raphael.js \autocite{sencha2014raphael}
-
 \begin{lstlisting}[language=JavaScript]
-// Creates canvas 320 × 200 at element with id of 'canvas'
-var paper = Raphael('#canvas', 10, 50, 320, 200);
+// Creates a canvas on the element with id of 'canvas'
+var paper = Raphael('#canvas', 100, 100);
 
-// Creates circle at x = 50, y = 40, with radius 10
-var circle = paper.circle(50, 40, 10);
+// Creates circle node at x = 20, y = 20, with radius 10
+var n1 = paper.circle(20, 20, 10);
+// Sets the fill attribute of the circle to black
+n1.attr("fill", "black");
+// Sets the stroke attribute of the circle to blue
+n1.attr("stroke", "blue");
 
-// Sets the fill attribute of the circle to red (#f00)
-circle.attr("fill", "#f00");
-// Sets the stroke attribute of the circle to white
-circle.attr("stroke", "#fff");
+// Creates circle node at x = 50, y = 50, with radius 10
+var n2 = paper.circle(50, 50, 10);
+// Sets the fill attribute of the circle to black
+n2.attr("fill", "black");
+// Sets the stroke attribute of the circle to blue
+n2.attr("stroke", "blue");
+
+// Creates a line from n1 to n2
+var edge = paper.path("M20 20L50 50")
+edge.attr("fill", "black");
+edge.attr("stroke", "black");
 \end{lstlisting}
 
-
-
+In contrast, the below is the Graphene approach for drawing the same diagram. \autocite{gu2014grapheneSimple}
 
 \begin{lstlisting}[language=JavaScript]
+// Data Controller
+// Array of node objects
+$scope.nodes = [{
+  id: 'n1',
+  x: 20,
+  y: 20
+}, {
+  id: 'n2',
+  x: 50,
+  y: 50
+}];
 
+// Array of edges, each containing references to source and target nodes
+$scope.edges = [{
+  source: $scope.nodes[0],
+  target: $scope.nodes[1]
+}];
+
+// Specify which variables to export to the template
+$scope.exports = {
+  nodes: $scope.nodes,
+  edges: $scope.edges
+};
 \end{lstlisting}
 
 \begin{lstlisting}[language=html]
+<!-- Template -->
+<svg width="100" height="100">
+  <!-- ng-repeat takes an expression to loop through-->
+  <g
+    ng-repeat="e in imports.edges"
+  >
+    <!-- ng-attr-foo takes binds object properties to the DOM element -->
+    <line 
+      stroke="black"
+      stroke-width="3px"
+      ng-attr-x1="{{e.source.x}}"
+      ng-attr-y1="{{e.source.y}}"
+      ng-attr-x2="{{e.target.x}}"
+      ng-attr-y2="{{e.target.y}}"
+      ></line>
+  </g>
+  <g 
+    ng-repeat="n in imports.nodes"
+    ng-attr-transform="translate({{n.x}}, {{n.y}})"
+    >
+    <circle
+      r="10"
+      fill="black"
+      stroke="blue"
+      stroke-width="3px"
+    ></circle>
+  </g>
+</svg>
 \end{lstlisting}
 
+The template and controller logic is invoked through the use the \texttt{sg-graphene} directive.
 
+\begin{lstlisting}[language=html]
+<sg-graphene template="views/template.html" imports="exports"><sg-graphene>
+\end{lstlisting}
 
-
+Graphene separates the data controller from the view.
+Arguably, this format results in code that is more readable, HTML/SVG is used to declaratively define the view.
+But perhaps more importantly, separation of concerns is achieved and the view is decoupled from data logic.
+Another benefit in the Graphene example is two-way data binding allows the view to be updated when the data changes.
+This is a non-trivial task to implement for the Raphael example.
 
 \section{Implementation}
-\subsection{Angular.js is used for data-binding}
-\subsection{D3.js is used for SVG manipulation}
+
+\subsection{Angular.js is used for data-binding and directives}
+Graphene contains one main dependency, Angular.js, which is the underlying engine responsible for data-binding and directive definitions.
+Data-binding in Angular is done through a process known as "dirty-checking".
+Dirty-checking is performed by a series of watchers, which compares new values to its previous value. \autocite{google2014angularScope}
+If a value change is detected, the defined change callback function is fired.
+
+At a high level, directives are markers on a DOM element (such as an attribute, element name, comment or CSS class) that tell Angular's HTML compiler to attach a specified behavior to that DOM element or even transform the DOM element and its children. \autocite{google2014angularDirectives, google2014angulardirectives2}
+Angular comes a set of directives, such as \texttt{ng-repeat}, but custom ones can also be defined.
+A major component of Graphene, \texttt{sg-graphene}, is a custom directive responsible for binding the layout template to objects defined in the controller.
+In addition, Graphene also includes helper functions for determining line intersections points for edge placement, and additional directives for imbuing zooming and click-to-drag behavior.
+
+\subsection{External JavaScript libraries can add functionality}
+Graphene can easily be used augmented with external JavaScript libraries.
+One example is the use of D3.js \autocite{bostock2014d3} for its force-directed layout algorithm.
+D3 uses the Barnes-Hut algorithm for simulating the force system. \autocite{bostock2011d3}
+
+\begin{lstlisting}[language=JavaScript]
+// Initalize force coordinate system
+var force = d3.layout.force()
+  .size([$scope.width || 800, $scope.height || 800]);
+
+// Bind links and nodes to the new force system
+force
+  .nodes($scope.nodes)
+  .links($scope.links)
+  .on('tick', function() {
+    // Bind callback function that runs on every 'tick' of force layout
+    if ($scope.height && $scope.width) {
+      // this ensures that no nodes ever leave the outermost edges
+      // of the force coordinate system
+      _.each($scope.nodes, function(n) {
+        n.x = Math.max(n.width, Math.min($scope.width -
+          n.width, n.x));
+        n.y = Math.max(n.height, Math.min($scope.height -
+          n.height, n.y));
+      });
+    }
+    // Triggers a digest cycle so view can update with new node positions
+    $scope.$digest();
+  })
+  // Begin force simulation
+  .start();
+\end{lstlisting}
+
 \subsection{Yeoman build chain allows for easy integration}
+
 
 \section{Future Directions}
 \autocite{w3c2014components}
