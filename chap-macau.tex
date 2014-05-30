@@ -23,39 +23,69 @@ Metabolites and other small molecules 17,257
 \begin{figure}
   \centering
   \begin{subfigure}[b]{\textwidth}
-    \includegraphics[width=\textwidth,page=5,trim=0.37cm 3.65cm 13.1cm 3.3cm, clip=true]{images/Figures.pdf}
-    \caption{The table view lists all reaction sets in a paginated format.
-      The user can browse the tabulated reaction sets and sort by meta data.}
+    \includegraphics[width=\textwidth, page=5,trim=0.37cm 3.65cm 13.1cm 3.3cm, clip=true]{images/Figures.pdf}
+    \caption{The table view lists all pathways in a paginated format.
+      The user can browse the tabulated pathways and sort by metadata.}
     \label{Figure:redox-table-view}
   \end{subfigure}
   \begin{subfigure}[b]{\textwidth}
-    \includegraphics[width=\textwidth,page=5,trim=13.1cm 3.65cm 0.37cm 3.3cm, clip=true]{images/Figures.pdf}
-    \caption{Pinned reaction sets are added to the reaction side bar and encoded with a color from palette.}
+    \includegraphics[width=\textwidth, page=5,trim=13.1cm 3.65cm 0.37cm 3.3cm, clip=true]{images/Figures.pdf}
+    \caption{Pinned pathways are added to the side bar and encoded with a color from palette.}
     \label{Figure:redox-table-pinned}
   \end{subfigure}
-  \caption{Redox Table View.}
+  \caption{The Redox Table View allows users to parse through numerous pathways and select individual candidates for further examination.}
   \label{Figure:redox-table}
 \end{figure}
 
 \begin{figure}
   \centering
+  \begin{subfigure}[b]{\textwidth}
+    \includegraphics[width=\textwidth, page=6,trim=0.37cm 3.65cm 13.1cm 3.3cm, clip=true]{images/Figures.pdf}
+    \caption{Mouse hover over the pathway list color codes all the related reactions and species involved in the pathway. In this template, circles indicate species and squares denote reactions.}
+    \label{Figure:redox-graph-highlight1}
+  \end{subfigure}
+  \begin{subfigure}[b]{\textwidth}
+    \includegraphics[width=\textwidth, page=6,trim=13.1cm 3.65cm 0.37cm 3.3cm, clip=true]{images/Figures.pdf}
+    \caption{Hovering over the next list item will quickly switch the color coding, allowing the user to explore the pathways.}
+    \label{Figure:redox-graph-highlight2}
+  \end{subfigure}
+  \caption{Redox Graph creates a connected network diagram from all selected pathways.}
+  \label{Figure:redox-graph-highlight}
 \end{figure}
 
 \begin{figure}
   \centering
-  \includegraphics[width=\textwidth,natwidth=610,natheight=642]{images/redox-ui.png}
-  \caption{Pathway exploration using Redox}
-  \label{Figure:redox}
+  \begin{subfigure}[b]{\textwidth}
+    \includegraphics[width=\textwidth, page=7,trim=0.37cm 3.65cm 13.1cm 3.3cm, clip=true]{images/Figures.pdf}
+    \caption{In the sidebar, sliders allow the user to interactively change force directed layout settings, such particle charge and gravity.}
+    \label{Figure:redox-template-a}
+  \end{subfigure}
+  \begin{subfigure}[b]{\textwidth}
+    \includegraphics[width=\textwidth, page=7,trim=13.1cm 3.65cm 0.37cm 3.3cm, clip=true]{images/Figures.pdf}
+    \caption{Graphene templates may be swapped out on the fly to change the graph.
+      Due to the separation of model and view, the underlying data is unchanged when the view is switched.}
+    \label{Figure:redox-template-b}
+  \end{subfigure}
+  \caption{The Redox layout is highly customizable.}
+  \label{Figure:redox-template}
 \end{figure}
-
 
 \begin{figure}
   \centering
-  \includegraphics[width=\textwidth,page=7]{images/Figures.pdf}
-  \caption{Swapping layout templates.}
-  \label{Figure:redoxLayouts}
+  \begin{subfigure}[b]{\textwidth}
+    \includegraphics[width=\textwidth, page=8,trim=0.37cm 3.65cm 13.1cm 3.3cm, clip=true]{images/Figures.pdf}
+    \caption{Upon node hover, a pop-up window shows the relevant chemical structure of the species of reaction diagram.
+      The sidebar also populates with a link to the ChEBI web page.}
+    \label{Figure:redox-detail-hover}
+  \end{subfigure}
+  \begin{subfigure}[b]{\textwidth}
+    \includegraphics[width=\textwidth, page=8,trim=13.1cm 3.65cm 0.37cm 3.3cm, clip=true]{images/Figures.pdf}
+    \caption{Clicking on the link to ChEBI leads directly to the species information page.}
+    \label{Figure:redox-detail-chebi}
+  \end{subfigure}
+  \caption{Exploring graph details.}
+  \label{Figure:redox-detail}
 \end{figure}
-
 
 \section{Implementation}
 \subsection{Data and Layout controllers Graphene}
