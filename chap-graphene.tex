@@ -1,4 +1,5 @@
 \chapter{Graphene.js: Building Reusuable Web Components for Data Visualization}
+\label{chap:graphene}
 
 \section{Purpose}
 
@@ -17,7 +18,7 @@ Modern web applications have many advantages over traditional desktop applicatio
 Software developers typically face a challenge in deploying software applications to their clients (Figure~\ref{fig:deployment-problem}).
 End users may use a wide variety of platforms, such as Apple OS X, Microsoft Windows, and Linux for desktop computers and Apple iOS, Google Android, and Microsoft Windows Phone for mobile devices.
 Each platform has a different pattern for building native binaries, which requires special expertise and is an obstacle particularly for smaller development teams and research labs.
-Web applications are inherently cross platform, available on all devices with a capable web browser (Figure~\ref{web-app-deployment}).
+Web applications are inherently cross platform, available on all devices with a capable web browser (Figure~\ref{fig:web-app-deployment}).
 Updates are also delivered immediately, which is typically not the case for desktop softwares.
 Thus, HTML5 web applications are a compelling platform for biomodeling applications as well.
 
@@ -267,7 +268,6 @@ At a high level, directives are markers on a DOM element (such as an attribute, 
 Angular comes a set of directives, such as \texttt{ng-repeat}, but custom ones can also be defined.
 A major component of Graphene, \texttt{sg-graphene}, is a custom directive responsible for binding the layout template to objects defined in the controller.
 In addition, Graphene also includes helper functions for determining line intersections points for edge placement, and additional directives for imbuing zooming and click-to-drag behavior.
-
 
 
 \begin{figure}

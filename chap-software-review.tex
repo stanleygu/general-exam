@@ -61,24 +61,8 @@
 \newcommand{\bp}{\mbox{\boldmath $p$}}
 
 
-\chapter{Background: Software and Standards in Systems Biology}
+\chapter{Background: Review of Software and Standards in Systems Biology}
 \label{chap:background}
-
-\section{Summary}
-
-With the sequencing of the human genome, it has become apparent that
-systems biology, the understanding of cellular networks through
-dynamical analysis is becoming an important part of research for
-mainstream biologists. One of the indicative trends to emerge in recent
-years is the development of model interchange standards that permit
-biologists to easily exchange dynamical models between different
-software tools. This chapter describes the current and rising standards
-in systems biology that facilitate knowledge management and
-physiological model exchange. In addition, software platforms that
-implement these standards and enables the reuse of software code is
-discussed. Finally, the range of possible computational applications is
-described, highlighting the most commonly used and emerging tools in the
-field.
 
 \section{Introduction}
 
@@ -1906,57 +1890,6 @@ simulation computations to the remaining nodes on the computer. For very
 large models, Grid computing \autocite{GridComputing:Abbas} may be very
 appropriate for solving this kind of problem.
 
-\section{Future Prospects and Conclusion}
-
-The systems biology field has been developing rapidly in recent years
-but much remains to be done. One of the most useful developments must
-undoubtedly go to the development of standards, such as SBML and CellML.
-Indeed one of the highest impact systems biology journals, Molecular
-Systems Biology, has stipulated that SBML is the preferred format for
-contributing models. Furthermore, as models are being increasingly
-better annotated with standardized vocabularies, an exciting horizon for
-the future of systems biology models is their improved modularity and
-ease of reuse.
-
-The other area that has received a lot of attention in recent years is
-the development of tools for systems biology. To avoid the problem of
-stagnating software projects that may have a short lifetime, the
-development of reusable software is a potential solution. Examples of
-reusable software are extensible frameworks, such as SBW, and suites of
-open-source libraries that can carry out specific functionality. An
-example of this is libSBML which enables other developers to concentrate
-on unique features, such as graphical interface or simulation
-capability, rather than waste unnecessary effort developing their own
-SBML parser. In terms of other possible libraries, examples include,
-open-source Gillespie based stochastic solvers and ODE solvers. Further
-more, hybrid methods combining continuous and stochastic methods is a
-pressing need at the current time. Many biological systems interface
-noisy sensory apparatus (\emph{e.g.} ligand binding to the surface of a
-cell membrane) to internal continuous analog networks
-\autocite{SauroReview:2004}. In addition to the core solvers, there is
-also need for scalable analysis tools, particularly bifurcation and
-sensitivity analysis tools. On the model validation front, much remains
-to be done, particularly the relationship between model validation and
-how this can direct future experimentation. This leads on to the
-development of new methods and algorithms for analyzing the complex
-networks in particular methods should be developed to modularize large
-networks since understanding an entire network is virtually impossible
-without some recourse to a hierarchical modularization.
-
-In conclusion, while there is certainly much to be done in this field,
-it is a very exciting time for systems biology and the role that
-standards and software platforms will play. The development of standards
-and their adoption in the community have accelerated drastically over
-the years. Furthermore, the tremendous efforts of many systems biology
-groups worldwide have made available an unprecedented number of
-resources and tools for building, sharing, and publishing models. We
-believe that more modular designs will accelerate the development of
-standards \autocite{hucka2010systems}, and promote the re-usability of
-models, or parts of models \autocite{neal2012sbml}. Furthermore, recent
-advancements in cloud computing and web technologies could potentially
-lead to many exciting and novel approaches in addressing the current
-challenges in computational systems biology.
-
 \section{Recommended Resources}
 
 Three main web sources which are of interest to readers of this chapter
@@ -1980,5 +1913,4 @@ versions for SBW, developer documentation, example models, screen shots,
 user guides can be obtained from this site. A link to the main
 sourceforge site is given where all the source code for SBW is made
 available.
-
 \end{description}
