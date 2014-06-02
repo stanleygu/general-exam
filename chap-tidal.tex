@@ -198,11 +198,24 @@ Statements within double curly braces, \texttt{\{\{value\}\}}, indicates an inte
 Within the \texttt{<line>} element, the \texttt{ng-repeat} attribute here specifies that a new \texttt{<line>} element is to be created from every value inside the \texttt{imports.edges} object, and for each new line to be bound to a reference to the edge item referred to as \texttt{link}.
 The directive \texttt{ng-attr-*} indicates that the * attribute be added to the element and bound to the value of the interpolated object.
 Thus, each new \texttt{<line>} element will have x1, x2, y1, and y2 values equivalent to the corresponding item in the \texttt{edges} array.
-The layout controller (Appendix~\ref{appendix-tidal-layoutCtrl}) 
+By using watching functions, layout controller (Appendix~\ref{appendix-tidal-layoutCtrl}), where layout specific logic belongs, is responsible for updating the link values when node positions are changed.
+Node positions may as a result of the force layout function or the user dragging.
+Line \texttt{opacity} and \texttt{stroke} attributes are also dependent on the properties of the underlying \texttt{edge} object.
 
+Similarly, nodes are created by binding the \texttt{<rect>} elements to every node object on the DOM scope.
+It is also worth noting that there are two \texttt{ng-repeat}s used for nodes, one for each time group, and one for each node within the time group.
+Nodes are offset by the time group index number and the height of the subgraph.
 
 \subsection{Event handling}
+Each node and link are also given \texttt{ng-mouseover}, \texttt{ng-mouseleave}, \texttt{ng-click}, and \texttt{ng-dblClick} directives.
+These directives handle their respective mouse actions over that particular DOM element, and triggers the attached function handles that are assigned to them.
+In particular, the \texttt{ng-mouseover} and \texttt{ng-mouseleave} function handles (defined in the layout controller) are responsible for highlighting neighbors on hover.
+The \texttt{mouseover} function works by changing the opacity of all nodes and edges that are not part of the nearest connected neighbors to a low, but still slightly visible value.
+On \texttt{mouseleave}, all opacities are then restored to their original values.
 
 \section{Future Directions}
-
+While core functionality of TiDAL with the Graphene visualization is complete and deployed to the public, there are still plans to further extend features of the layout.
+The next task is to create a searchable input form for users to query and select from the list of genes used in the TiDAL algorithm, which is part of the original data set.
+Selected genes will appear in the time slot that it was first differentially expressed and regulatory edges will be drawn from the associated transcription factor nodes.
+This will help users to see which transcription factors are detected to affect the particular gene of interest to their research.
 
