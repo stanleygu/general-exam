@@ -5,13 +5,11 @@
 
 The purpose of this chapter is to introduce Graphene.js \autocite{gu2014graphene}, a framework for creating data-driven visualizations and user interfaces.
 In addition, the Graphene.js approach to data visualization is contrasted to currently established JavaScript drawing libraries.
-Graphene is the key component of the user interface for all other applications described in this body of work.
-
-Graphene is open source and available on GitHub.
+Graphene is the one of the key components in the user interfaces of the other applications described in subsequent chapters.
 
 \section{Motivation}
 
-Graphical representations of information are valuable for presenting complex information quickly and clearly. \autocite{newsom2007public, smiciklas2012power}
+Graphical representations of information are valuable for presenting complex information quickly and clearly. \autocite{newsom2007public, smiciklas2012power, tufte1983visual}
 They can vastly improve comprehension by using graphics to enhance the human visual system’s ability to see patterns and trends. \autocite{heer2010tour, sears2007human}
 Meanwhile, the Internet and World Wide Web \autocite{berners2000weaving} has become perhaps the most powerful medium for information sharing. \autocite{bollacker1998citeseer, wilkinson2003motivations, page1999pagerank}
 Modern web applications have many advantages over traditional desktop applications.
@@ -20,7 +18,7 @@ End users may use a wide variety of platforms, such as Apple OS X, Microsoft Win
 Each platform has a different pattern for building native binaries, which requires special expertise and is an obstacle particularly for smaller development teams and research labs.
 Web applications are inherently cross platform, available on all devices with a capable web browser (Figure~\ref{fig:web-app-deployment}).
 Updates are also delivered immediately, which is typically not the case for desktop softwares.
-Thus, HTML5 web applications are a compelling platform for biomodeling applications as well.
+For these reasons, HTML5 web applications are a compelling platform for biomodeling applications as well.
 
 \begin{figure}
   \centering
@@ -35,13 +33,13 @@ Thus, HTML5 web applications are a compelling platform for biomodeling applicati
   \label{fig:web-app-deployment}
 \end{figure}
 
-\subsection{Few systems biology software packages are built using HTML5 web technologies}
+\subsection{Few systems biology software packages are built using HTML5}
 Modeling standards and open source software packages, as reviewed in  Software in chapter~\ref{chap:background}, have been a boon to the biomedical research community.
 While there are a wide variety of powerful tools that have been developed over the years, there is a distinct lack of web applications.
 One way to get a sense of the current landscape of modeling software is to consider the SBML Software Guide \autocite{sbml2014software}, which has conveniently organized and characterized publicized SBML compatible software.
 Of the 96 closed-source software packages listed in the Software Guide, only 24 contain any type of web based features and only one can be considered an HTML5 web application \autocite{olivier2004web}.
 Of the 166 free and open source softwares listed, just 37 contain any web capabilities, and none of which are an HTML5 application.
-\subsection{Systems biology software is complex and building complex web applications is difficult}
+\subsection{Challenges in building complex web applications}
 There are several obstacles to building biomodeling web applications, which may explain the absence of web applications in the biomodeling domain.
 Scientific libraries that most biomodeling software depends on have been intended for desktop use, which can also be used server-side in a web application, but requires additional expertise.
 Furthermore, designing and implementing complex graphical user interfaces (GUIs) on the web is a nontrivial engineering challenge.
@@ -75,32 +73,30 @@ Better web designs are important because it may increase user engagement and lik
 
 \section{Solution}
 
-\subsection{Graphene.js allows for easily customizable and reusuable web diagrams}
-Graphene.js addresses these issues by using a different approach.
-Graphene creates interactive diagrams through two-way-binding of the application data model to a customizable SVG template.
-Thus, no custom rendering engine is required as it is performed by the browser, and the rich SVG vocabulary (which may be created through a text editor or through a graphical SVG drawing program) may be used to define nearly any type of edge, arrow marker, or Bezier curve.
-Graphene templates may also be customized for visualizations beyond node-edge graphs, such as charts and animations.
-
-
-Cytoscape.js \autocite{cytoscape2014js} is a graph drawing library and a potential choice for network visualization. 
-It contains an impressive HTML5 Canvas based rendering engine, but currently lacks the ability to customize the following:
-
-\begin{itemize}
-\item Color gradients for nodes
-\item Marker ends and node shapes beyond a predefined set
-\item Control points for Bezier curves
-\item Placement of edge start and end points
-\end{itemize}
-
-In addition, since Cytoscape.js produces a canvas drawing and not DOM elements, the graph elements are unable to be used with other JavaScript libraries (for example a popover plugin that acts on each node) nor bound to custom events.
-Cytoscape Web \autocite{cytoscape2014web} is a similar library, but is based on Adobe Flash, which limits its utility for cross platform deployment.
-
 \subsection{Declarative vs. Imperative: Data-binding over DOM manipulation}
 \label{sec:declarative-vs-imperative}
 
-Graphene uses Angular.js \autocite{google2014angular} to provide a Model-View-Controller \autocite{krasner1988description} interface for implementing layouts.
+Thus far, the deficiencies in building and scaling web applications using the DOMAM approach have been stated, but what better alternative exists?
+Graphene.js is built on top of Angular.js \autocite{google2014angular}, so in order understand the utility of Graphene, we must first understand the benefits of Angular.
+
+Two of the most important components that Angular provides are DOM scopes and directives (Figure~\ref{Figure:dom-scope}).
+A scope can be thought of as a variable namespace that belongs to a section of the DOM.
+Child scopes may be attached to child elements, and may inherit references to variables from its parent scope.
+The topmost scope is referred to as the root scope, which is may typically bound to the \texttt{<body>} element.
+
+Directives are markers on a DOM element (such as an attribute, element name, comment or CSS class) that tell Angular to attach a specified behavior to that DOM element or even transform the DOM element and its children. \autocite{google2014angularDirectives, google2014angulardirectives2}
+Angular comes with a set of directives, such as \texttt{ng-repeat}, but new ones can also be defined.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.48\textwidth, page=23, trim=0cm 0cm 11cm 0cm, clip=true]{images/Figures.pdf}
+  \caption{Scopes and directives in the DOM. Directives define new scopes. Scopes may be configured to inherit values from its parent, or to explicitly bound to a finite number of specified values.}
+  \label{Figure:dom-scope}
+\end{figure}
+
+
 Here we will discuss the differences between the DOMAM/jQuery pattern and Angular MVC approach, which will help explain the design decisions behind Graphene.
-Consider this jQuery example of fetching JSON data from an endpoing:
+Consider this snippet of JavaScript that is used for fetching JSON data from an endpoint:
 
 \begin{lstlisting}[language=JavaScript]
 $.ajax({
@@ -151,7 +147,11 @@ For example, the view can be swapped out for the following without any need to c
 </div>
 \end{lstlisting}
 
-Similarly, Graphene brings the Separation of Concerns pattern to drawing on the web.
+
+\subsection{Graphene.js allows for easily customized and reusuable web diagrams}
+
+Graphene uses Angular.js to provide a Model-View-Controller \autocite{krasner1988description} interface for implementing layouts.
+This is a stark contrast to using traditional drawing libraries.
 Consider how one must use the drawing API of a well established drawing library, Raphael.js. \autocite{sencha2014raphael} in creating a simple node-edge diagram (Figure~\ref{fig:graphene-simple}).
 
 \begin{figure}
@@ -255,6 +255,28 @@ Arguably, this format results in code that is more readable, HTML/SVG is used to
 But perhaps more importantly, separation of concerns is achieved and the view is decoupled from data logic.
 Another benefit in the Graphene example is two-way data binding allows the view to be updated when the data changes.
 This is a non-trivial task to implement for the Raphael example.
+Graphene.js addresses these issues by using a different approach.
+Graphene creates interactive diagrams through two-way-binding of the application data model to a customizable SVG template.
+Thus, no custom rendering engine is required as it is performed by the browser, and the rich SVG vocabulary (which may be created through a text editor or through a graphical SVG drawing program) may be used to define nearly any type of edge, arrow marker, or Bezier curve.
+Graphene templates may also be customized for visualizations beyond node-edge graphs, such as charts and animations.
+
+
+Cytoscape.js \autocite{cytoscape2014js} is a graph drawing library and a potential choice for network visualization. 
+It contains an impressive HTML5 Canvas based rendering engine, but currently lacks the ability to customize the following:
+
+\begin{itemize}
+\item Color gradients for nodes
+\item Marker ends and node shapes beyond a predefined set
+\item Control points for Bezier curves
+\item Placement of edge start and end points
+\end{itemize}
+
+In addition, since Cytoscape.js produces a canvas drawing and not DOM elements, the graph elements are unable to be used with other JavaScript libraries (for example a popover plugin that acts on each node) nor bound to custom events.
+Cytoscape Web \autocite{cytoscape2014web} is a similar library, but is based on Adobe Flash, which limits its utility for cross platform deployment.
+
+
+
+
 
 \section{Implementation}
 
@@ -264,8 +286,6 @@ Data-binding in Angular is done through a process known as "dirty-checking".
 Dirty-checking is performed by a series of watchers, which compares new values to its previous value. \autocite{google2014angularScope}
 If a value change is detected, the defined change callback function is fired.
 
-At a high level, directives are markers on a DOM element (such as an attribute, element name, comment or CSS class) that tell Angular's HTML compiler to attach a specified behavior to that DOM element or even transform the DOM element and its children. \autocite{google2014angularDirectives, google2014angulardirectives2}
-Angular comes a set of directives, such as \texttt{ng-repeat}, but custom ones can also be defined.
 A major component of Graphene, \texttt{sg-graphene}, is a custom directive responsible for binding the layout template to objects defined in the controller.
 In addition, Graphene also includes helper functions for determining line intersections points for edge placement, and additional directives for imbuing zooming and click-to-drag behavior.
 
@@ -333,13 +353,17 @@ Yeoman consist of the web development build tools: yo \autocite{yeoman2014yo}, g
 yo consists of a number of community maintained and developed generators that scaffold out new applications, generate Grunt configurations and pulling in relevant Bower dependencies.
 Grunt is a task runner, used to build, preview, test, and deploy projects.
 Bower is a dependency management system, so developers no longer have to manually download and manage JavaScript packages.
+Thorough documentation and numerous tutorials are available online for users to become familiar with these build tools.
 
-Many tutorial exist online in using these tools.
-New users can install Graphene with the simple command \texttt{bower install graphene}.
+The development of Graphene is version-controlled using git.
+Graphene uses semantic versioning, following the \texttt{major.minor.patch} format.
+Patch version changes should be completely backwards compatible, minor version changes should be mostly backwards compatible, and major version changes should require review and possible adjustment current implementations.
+Versions are labeled with git tags which are pushed to the main repository, which lets users install Graphene easily using the command \texttt{bower install graphene} (specific versions may be installed by appending the version number, for example \texttt{bower install graphene\#1.0.0} for installing version 1.0.0).
 For the developers and maintainers of Graphene, new versions can be tested and deployed to GitHub through the command \texttt{grunt dist}.
 
 \section{Future Directions}
-The trend of where web standards and development is going was one of the major underlying motivators for the Graphene approach.
+The trend of web standards and development was one of the major underlying motivators for the Graphene approach.
 Directives and data-binding that is provided Angular.js are actually stepping stones for Native HTML Web Components \autocite{w3c2014components}, HTML Templates \autocite{w3c2014templating}, and ECMAScript 6 \texttt{Object.observe} data-binding \autocite{polymer2014templating}.
-Thus, the goal of Graphene is to introduce the biomodeling community towards the horizon of modern, functional web applications.
 
+Version 1.1.0 of Graphene has already been released and is currently used in production on several projects, which will be described in the subsequent chapters.
+While there are no current plans for major releases, bug fixes will be addressed promptly so no downstream project is disrupted.
