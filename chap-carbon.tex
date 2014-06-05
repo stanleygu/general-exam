@@ -40,7 +40,10 @@ Input boxes are also available for changing start and end simulation times and t
 A number of python libraries are already installed inside the workspace, including Tellurium, PySCeS, and Pandas.
 Users may also install any additional libraries that they may need, either through the terminal or using a package manager such as \texttt{pip}, without affecting the environment of other users.
 
-A plugin has also been developed which allows users to generate URL links from Combine Archive files that upon opens to a portal page to allow the user to open the entire model project on Carbon or locally if they have the necessary software installed (Figure~\ref{Figure:carbon-combine-archive}).
+A plugin has also been developed which allows users to generate URL links from Combine Archive \autocite{combine2014archive} files that upon opens to a portal page to allow the user to open the entire model project on Carbon or locally if they have the necessary software installed (Figure~\ref{Figure:carbon-combine-archive}).
+Combine Archives are an emerging standardized zip file, meant to contain all the necessary files to reproduce a computational experiment.
+They consist of: a manifest file describing the type of each file included in the archive, a metadata file that contains clerical information regarding the archive files, and then all of the project files. 
+
 
 \autocite{ragan2013collaborative}
 
@@ -49,24 +52,58 @@ A plugin has also been developed which allows users to generate URL links from C
 Carbon uses two top level processes a node.js server and a MongoDB database (Docker is also used extensively, which will be discussed in section~\ref{sec:docker}).
 Node.js was selected as the platform because of its high performance and ability to use JavaScript on the server \autocite{tilkov2010node}, which eases development by keeping the same programming language between server and client.
 Carbon also uses the node.js package management system, \texttt{npm}, extensively to management software dependencies and to easily deploy on multiple platforms. \autocite{lerner2011forge}
+The database is primarily used to store user information.
+MongoDB was selected as the database of choice simply because the supporting libraries for integrating node.js are well documented and with an active community.
+Figure~\ref{fig:carbon-architecture} provides an overview of the implementation and application flow.
 
+New users register by submitting their name, email, and password.
+When the server receives this request, a new entry in the Users Collection of the database is added.
+In order to protect against malicious attacks to obtain user information, the password is stored as an encrypted hash with salt. \autocite{bellovin1993augmented}
+To help automatically provide a profile picture for the user, their email will be checked against gravatar, a service for universal profile pictures based on email.
 
-
-
-\subsection{Database}
-
-\subsubsection{Express.js and Flask}
-\subsubsection{MongoDB}
-\subsection{Workspace isolation}
+\subsection{Individual workspace isolation}
 \label{sec:docker}
-\subsubsection{Linux containers}
-\subsubsection{Services and ports}
-\subsection{Asynchronous programming}
-\subsubsection{Highly nested callbacks}
-\subsubsection{Use of promises}
-\subsection{Conversion of model formats to IPython notebooks}
+
+Central to how Carbon works is that each user is assigned a Docker Container.
+A Docker Container is an operating system level virtualization method, somewhat like a very lightweight virtual machine, such that the file system and processes within it are isolated from different containers.
+The container is created from an image, defined by a text file called the \texttt{Dockerfile}, which can come pre-installed with various programs.
+The Docker image used by Carbon contains a number of scientific python libraries, the IPython Notebook server, and Workspaces app.
+This level of environmental isolation prevents the processes of users from interfering with one another.
+Web applications must run on TCP ports, which internal to each docker is the exact same.
+Port collisions are avoided by forwarding all container ports to a unique host port in a predefined port range.
+For example, IPython Notebook runs on port 8888, during the container creation, a subroutine checks if port 14597 is free, if it is, it will be assigned and saved as the IPython port for that client.
+Each client then has a set of unique port numbers associated with each of the applications that are available.
+In the client browser, when one of the app icons is clicked, an \texttt{<iframe>} element is created that connects the main page (which will typically be running on port 80) to the desired application on a different port number.
+
+This architecture makes Carbon quite inclusive with the ability to plug in additional apps, any software application that can be installed on Linux and able to use the web browser as the user interface may be easily added into Carbon.
+
+\subsection{Conversion of models to IPython notebooks}
+
+Automatically generating IPython notebooks is done through a templating process.
+Since IPython notebook files are in JSON format, which may be read directly in JavaScript, a default IPython notebook is maintined that contains all the default scripts.
+When a notebook is being generated from a model, the model file name is then inserted into the appropriate places in the template.
+
+\subsection{Opening Combine Archives with Carbon}
+Another feature previously mentioned that is currently at an early stage of development is the Carbon Portal page.
+
+The Portal works by handling a special set of URLs, for example: 
+
+\texttt{http://carbon.sysb.io/redirect?title=test\&format=base64\&archive=aGVsbG8gd29ybGQ=}
+
+The \texttt{redirect} route is designed to specially handle this link format.
+First, the client is presented with the option to open the archive with Carbon, or if they have the necessary local
+Query parameters \texttt{title}, \texttt{format}, and \texttt{archive} wholly describe the incoming archive file, which in this example is encoded in base64 (this example string just decodes to "hello world!").
+Hexadecimal encoding is also supported.
+The archive string is decoded by the server and processed by \autocite{sysbio2014sedml2py} to generate python files, which are then converted into IPython Notebook format.
+After this is complete, the server 
+
+Carbon handles
+
+\texttt{http://localhost:5000/redirect?title=test\&format=base64\&archive=aGVsbG8gd29ybGQ=}
 
 \section{Future Directions}
+
+Of the different projects this one still requires the most work
 \subsection{Security}
 
 \begin{figure}
