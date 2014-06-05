@@ -8,7 +8,7 @@ While Carbon is still under rapid development, many core features are already in
 
 \section{Motivation}
 
-For science to advance, experimental reproducibility is crucial. 
+For science to advance, experimental reproducibility is crucial. \autocite{peng2011reproducible}
 For computational experiments, in theory, a script or program could describe every step taken by the computer, which provides even greater detail than the analogous non-computational experimental descriptions published in journals.
 However, the reality is that sometimes the code is not available, either unpublished or nonexistent when the interactive software system does not track the users’ actions.
 Even if the researcher shares code, it may require specific versions of software platforms and packages, which may be difficult to acquire.
@@ -95,15 +95,13 @@ First, the client is presented with the option to open the archive with Carbon, 
 Query parameters \texttt{title}, \texttt{format}, and \texttt{archive} wholly describe the incoming archive file, which in this example is encoded in base64 (this example string just decodes to "hello world!").
 Hexadecimal encoding is also supported.
 The archive string is decoded by the server and processed by \autocite{sysbio2014sedml2py} to generate python files, which are then converted into IPython Notebook format.
-After this is complete, the server 
-
-Carbon handles
-
-\texttt{http://localhost:5000/redirect?title=test\&format=base64\&archive=aGVsbG8gd29ybGQ=}
+After this is complete, the server redirects the client to the newly created notebook.
 
 \section{Future Directions}
 
 Of the different projects this one still requires the most work
+
+
 \subsection{Security}
 
 \begin{figure}
