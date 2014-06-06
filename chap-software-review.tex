@@ -64,8 +64,9 @@
 \chapter{Background: Review of Software and Standards in Systems Biology}
 \label{chap:background}
 
+\section{Purpose}
 
-\subsection{Quantitative Approaches}
+\section{Quantitative Approaches}
 
 There is a wide range of mathematical representations that one can use
 to build quantitative models, the choice of approach depending on the
@@ -124,7 +125,7 @@ Sometimes a model requires constraints on the variables during the
 solution of the ODEs. Such a situation is often termed a DAE system. The
 simplest constraints are mass conservation constraints, however these
 are linear and can be handled efficiently and easily using simple
-assignment equations (see equation \ref{eq:general}). DAE solvers need
+assignment equations. DAE solvers need
 only be used when the constraints are nonlinear.
 
 \item[Partial differential equations (PDEs):]
@@ -156,84 +157,7 @@ Many researchers will express these models using the following equation:
 
 Where $\bS$ is the vector of molecular species concentrations, $\bN$,
 the stoichiometry matrix; $\bv$ the rate vector and $\bp$ a vector of
-parameters which can influence the evolution of the system. Real
-cellular networks have an additional property that is particularly
-characteristic of biological networks, this is the presence of so-called
-moiety conserved cycles. Depending on the time-scale of a study, there
-will be molecular subgroups conserved during the evolution of a network,
-these are termed \emph{conserved moieties} \autocite{Re81}. The total
-amount of a particular moiety in a network is time invariant and is
-determined solely by the initial conditions imposed on the
-system\footnote{There are rare cases when a conservation relationship
-  arises out of a non-moiety cycle. This does not affect the mathematics
-  but only the physical interpretation of the relationship. For example,
-  A $\rightarrow$ B + C; B + C $\rightarrow$ D has the conservation,
-  $B - C =\mbox{constant}$.}.
-
-In metabolism, conserved cycles act as common conveyors of energy (ATP)
-or reducing power (NAD); in signaling pathways they occur as protein
-phosphorylation states while in genetic networks, they occur as bound
-and unbound protein states to DNA. These conserved cycles will often
-have a profound effect on the network behavior and it is important that
-they be properly considered in computational models.
-
-From the full set of molecular species in a model, it is customary to
-divide the set into two groups, the dependent ($\bSd$) and independent
-set ($\bSi$). This division is dependent entirely on the number and kind
-of conserved cycles in the network. If there aren't any conserved cycles
-in a model then the dependent set is empty and the size of the
-independent set equals the number of molecular species in the model. For
-details on how to compute $\bSd$ and $\bSi$ the reader should consult
-\autocite{Sauro:ICycles2004} or refer to Box 1 in this chapter. In many
-cases it is vital that this separation into dependent and independent
-species be made. For simple time course simulations the separation is
-not so important, but for most other analyses it is critical and for
-stiff integration methods highly desirable. The reason is that many
-numerical methods, including the stiff integrators, employ a measure
-called the Jacobian matrix as part of the numerical calculation. If the
-separation is not carried out, the Jacobian becomes singular and thereby
-rendering most analyses (\emph{e.g.} steady state location, bifurcation
-analysis, certain optimization methods and sensitivity methods etc.)
-numerically unstable if not impossible. Even when carrying out simple
-time course simulations, the separation is also useful because it
-enables the number of differential equations to be reduced in number and
-thereby improve computational efficiency.
-
-Equation \ref{eq:system} is therefore better expressed as:
-
-\begin{eqnarray} \label{eq:general}
-        \bSd &=& \bLo \bSi + \bT \nonumber \\
-        \bdSidt &=& \bNr \bv (\bSi (p), \bSd, \bp) 
-\end{eqnarray}
-
-In these equations, $\bSi$ is the vector of independent species, $\bSd$,
-the vector of dependent species, $\bLo$ the link matrix, $\bT$ the total
-mass vector, $\bNr$ the reduced stoichiometry matrix, $\bv$ the rate
-vector and $\bp$ the vector of parameters. Equation \ref{eq:general}
-constitutes the most general expression of an ODE based temporal model
-\autocite{hofmeyr-nutshell}\autocite{Schuster:Book}. The symbolism used
-in equation \ref{eq:general} is the standard notation used by many in
-the systems biology community.
-
-Although mathematically, reaction based models are given by equations
-\ref{eq:system} and \ref{eq:general}, many researchers are more familiar
-with expressing models in the form of a reaction scheme. For example,
-the following describes part of glycolysis:
-
-\label{scheme}
-\begin{verbatim}
-    Glucose-6-P -> Fructose-6-Phosphate
-    Fructose-6-Phosphate + ATP -> Fructose-1-6-Bisphosphate + ADP
-    Fructose-1-6-Bisphosphate -> DHAP + GAP
-\end{verbatim}
-
-For brevity, the rates laws that accompany each reaction have been left
-out. Such notation is well understood by biologists. It is not straight
-forward however to convert this representation to the representation
-give by equation \ref{eq:general}. However, many software tools will
-permit users to enter models as a list of reactions and then
-automatically generate the mathematical model
-\autocites{SauroF91}{sauro:2000}.
+parameters which can influence the evolution of the system. 
 
 \section{Standards}
 
@@ -295,103 +219,7 @@ the new standards in computational systems biology, SBML and CellML
 modeling sub-domain standards under the same requisites, and thus
 ensuring that models are easily testable, reproducible, and comparable,
 the utility of quantitative modeling may be enhanced for the benefit of
-biomedical research. However, the ultimate impact of these standards
-depends on their adoption throughout the community and the number of
-software tools that are developed to facilitate its use (more issues
-that we will discuss later in this chapter).
-
-Traditionally, a challenge that MIRIAM faces is that encoded models in
-scientific publications or online are not in a standard format. And, of
-those that are encoded in a standard format, many actually fail
-compliance and validation tests developed for the standards. Failures
-may occur for a variety of reasons, ranging from minor syntactic errors
-to significant conceptual problems. Further semantic inaccuracies may
-lie within the model structure. With models that are not annotated,
-users are faced with ambiguous reaction specifications, such as species
-``A'' and ``B'' producing ``C''.
-
-Thus, to address these quality issues, MIRIAM comprises of the following
-guidelines:
-
-\begin{center}\rule{3in}{0.4pt}\end{center}
-
-Reference correspondence
-
-\begin{itemize}
-\item
-  The model must be encoded in a public, standardized, machine-readable
-  format (SBML, CellML, GENESIS, \ldots{}).
-\item
-  The model must comply with the standard in which it is encoded.
-\item
-  The model must be clearly related to a single reference description.
-  If a model is composed from different parts, there should still be a
-  description of the derived/combined model.
-\item
-  The encoded model structure must reflect the biological processes
-  described by the reference description.
-\item
-  The model must be instantiable in a simulation: all quantitative
-  attributes must be defined, including initial conditions.
-\item
-  When instantiated, the model must be able to reproduce all results
-  given in the reference description within an epsilon (algorithms,
-  round-up errors).
-\end{itemize}
-Attribution annotation
-
-\begin{itemize}
-\item
-  The model has to be named.
-\item
-  A citation to the reference description must be provided (complete
-  citation, unique identifier, unambiguous URL). The citation should
-  identify the authors of the model.
-\item
-  The name and contact information for model creators must be provided.
-\item
-  The date and time of model creation and last modification should be
-  specified. A history is useful but not required.
-\item
-  The model should be linked to a precise statement about the terms of
-  it's distribution. MIRIAM does not require ``freedom of use'' or ``no
-  cost''.
-\end{itemize}
-External resource annotation
-
-\begin{itemize}
-\item
-  The annotation must unambiguously relate a piece of knowledge to a
-  model constituent.
-\item
-  The referenced information should be described using a triplet
-  \{collection, identifier, qualifier\}:
-\item
-  The annotation should be written as a Uniform Resource Identifier
-  (URI).
-\item
-  The identifier should be considered within the context of the
-  framework of the collection.
-\item
-  Collection namespace and identifier are combined into a single URI,
-  such as: http://identifiers.org/collection/identifier. For example:
-  http://identifiers.org/uniprot/P62158.
-\item
-  Qualifiers (optional) should refine the link between the model
-  constituent and the piece of knowledge: ``has a'', ``is version of'',
-  ``is homolog to'', etc.
-\item
-  The community has to agree upon a set of standard valid URIs. A
-  database and the associated API (Web Services) have been developed at
-  the EBI to provide the generation and interpretation of URIs.
-\end{itemize}
-\begin{center}\rule{3in}{0.4pt}\end{center}
-
-MIRIAM applies these guidelines to a wide range of quantitative models,
-which may use a variety of different mathematical representations, such
-as ODE, PDE, or DAEs. However, the ultimate test is to compare
-simulation results from a model representation with the reference
-description of the model.
+biomedical research.
 
 \subsubsection{Minimum Information About a Simulation Experiment
 (MIASE)}
@@ -409,81 +237,6 @@ its simulation. This includes the list of models that were used, any
 modifications that were made, simulation procedures that were applied,
 and how the raw numerical results were processed to produce the final
 output.
-
-The MIASE guidelines are comprised of the following:
-
-\begin{center}\rule{3in}{0.4pt}\end{center}
-
-All models used in the experiment must be identified, accessible, and
-fully described.
-
-\begin{itemize}
-\item
-  The description of the simulation experiment must be provided together
-  with the models necessary for the experiment, or with a precise and
-  unambiguous way of accessing those models.
-\item
-  The models required for the simulations must be provided with all
-  governing equations, parameter values and necessary conditions
-  (initial state and/or boundary conditions). If a model is not encoded
-  in a standard format, then the model code must be made available to
-  the user.
-\item
-  If a model is not encoded in an open format or code, its full
-  description must be provided, sufficient to re-implement it.
-\item
-  Any modification of a model (pre-processing) required before the
-  execution of a step of the simulation experiment must be described.
-\end{itemize}
-A precise description of the simulation steps and other procedures used
-by the experiment must be provided.
-
-\begin{itemize}
-\item
-  All simulation steps must be clearly described, including the
-  simulation algorithms to be used, the models on which to apply each
-  simulation, the order of the simulation steps, and the data processing
-  to be done between the simulation steps.
-\item
-  All information needed for the correct implementation of the necessary
-  simulation steps must be included, through precise descriptions, or
-  references to unambiguous information sources.
-\item
-  If a simulation step is performed using a computer program for which
-  source-code is not available, all information needed to reproduce the
-  simulation, and not only repeat it, must be provided, including the
-  algorithms used by the original software and any information necessary
-  to implement them, such as the discretization and integration methods.
-\item
-  If it is known that a simulation step will produce different results
-  when performed in a different simulation environment or on a different
-  computational platform, an explanation of how the model has to be run
-  with the specified environment/platform in order to achieve the
-  purpose of the experiment must be given.
-\end{itemize}
-All information necessary to obtain the desired numerical results must
-be provided.
-
-\begin{itemize}
-\item
-  All post-processing steps applied on the raw numerical results of
-  simulation steps in order to generate the final results have to be
-  described in detail. That includes the identification of data to
-  process, the order in which changes were applied, and also the nature
-  of changes.
-\item
-  If the expected insights depend on the relation between different
-  results, such as a plot of one against another, the results to be
-  compared have to be specified.
-\end{itemize}
-\begin{center}\rule{3in}{0.4pt}\end{center}
-
-By providing the information specified by these guidelines, modelers can
-be reasonably assured that the simulation experiment corresponds with
-those of the original authors. Thus, as adoption of MIASE spreads, the
-quality of scientific reporting will increase, and collaborative efforts
-in computational modeling and simulation of biological systems is
-encouraged.
 
 \subsection{Ontologies}
 
@@ -612,7 +365,7 @@ exchange standard, called SBML \autocite{hucka:2002d}.
 \subsubsection{CellML}
 
 CellML \autocite{LloydCellML2004} represents cellular models using a
-mathematical description similar to equation \ref{eq:general}. CellML
+mathematical description similar to equation \ref{eq:system}. CellML
 also has provisions for metadata annotations to allow MIRIAM compliance.
 In addition, CellML represents entities using a component based approach
 where relationships between components are represented by connections.
@@ -733,29 +486,6 @@ the community has since developed a comprehensive cross platform tool
 libSBML (\url{http://sbml.sourceforge.org}) which is now the recommended
 SBML toolkit to use. LibSBML was developed in C/C++, with bindings to a
 number of different languages, for maximum portability.
-
-\paragraph{Practical Considerations}
-
-Whereas CellML is very general, SBML is more specific, as result, the
-storage requirement for SBML is much less. It takes on average roughly
-1.5 kilobytes to store a single chemical transformation in SBML Level 2
-(compared to 5 kilobytes for CellML). Interestingly it only takes
-roughly 50 to 100 bytes to store single transformations in raw binary
-format where there is minimal extraneous syntax. Some readers may feel
-that with todays cheap storage technologies, that discussions on storage
-requirements is unnecessary. Indeed for small models it is not an issue.
-However, in future very large models are likely to be developed. There
-is, for example a serious attempt (\url{http://www.physiome.org}) now
-underway to model in the long term entire organs and even whole
-organisms. The amount of information in these cases is huge and the
-question of efficient storage is not so trivial. Obviously XML is highly
-compressible and large models can be stored in this way. However,
-inefficient storage also increases the time taken to manipulate the
-models. Furthermore, in a modeling environment, model authors tend to
-generate hundreds of variants while developing the model. For a large
-model this clearly would generate huge amounts of XML based data. One of
-the things that has yet to be addressed by either standard is the how
-model variants can be efficiently stored.
 
 \paragraph{Usage}
 
@@ -1170,18 +900,9 @@ under Wine (Windows emulator) thus permitting it to run under Linux.
 Visually, Jarnac has two main windows, a console where commands can be
 issued and results returned and an editor where control scripts and
 models can be developed. The application also has a plotting window
-which is used when graphing commands are issued (see Figure
-\ref{Figure:jarnac}).
+which is used when graphing commands are issued.
 
-\begin{figure}[htbp]
-\centering
-\includegraphics{images/jarnac.eps}
-\caption{User interface for Jarnac\label{Figure:jarnac}}
-\end{figure}
-
-From our experience with using many simulation tools over the years,
-Jarnac probably offers the fastest development time for model building
-of any tool. Models can also be imported or exported as SBML. Like
+Models can also be imported or exported as SBML. Like
 COPASI and PySCeS, Jarnac offers many analysis capabilities including
 extensive support for metabolic control analysis, structural analysis of
 networks and stochastic simulation. It has no explicit support for
@@ -1207,16 +928,10 @@ reactions and membranes can be modified visually to change colors,
 shapes etc. Moreover, nodes can be decorated with covalent sites and
 multimeric structures. JDesigner uses fully adjustable multi-bezier arcs
 to generate reactions and regulatory arcs and has a variety of export
-formats that allow camera-ready copy to be generated for publications
-(see Figure \ref{Figure:jdesigner} as an example). Models are stored in
+formats that allow camera-ready copy to be generated for publications.
+Models are stored in
 native SBML with specific open access annotations to store the visual
 information.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics{images/JDesigner1.eps}
-\caption{Example of JDesigner's visual format\label{Figure:jdesigner}}
-\end{figure}
 
 \subsubsection{JSim \label{jsim}}
 
@@ -1313,104 +1028,6 @@ be specified in a rule based manner. VCell is also one of the few tools
 that can both import and export SBML and CellML. This feature could in
 principle be used to translate between SBML and CellML models.
 
-\subsubsection{Other Modeling Tools}
-
-Several other modeling tools will be mentioned in this section but with
-shorter descriptions. Some basic information on which platforms this
-software is available on and a URL to find more information will be
-provided.
-
-\paragraph{BioNetGen \autocite{blinov2004bionetgen}}
-
-Tool for rule-based modeling of biochemical systems. In rule-based
-models, molecules and their complexes are represented using graphs, and
-their consequent interactions will cause rewiring of the graph based on
-rules. Originally, it was developed to study the problem of
-combinatorial complexity of signal transduction systems, such as
-antibody receptor binding.
-
-\begin{itemize}
-\item
-  Open source; Linux, Mac OS, Microsoft Windows
-\item
-  \url{http://bionetgen.org/index.php/Main_Page}
-\end{itemize}
-\paragraph{Gepasi \autocite{Gepasi:1993}}
-
-This is forms based application was one of the first simulation
-platforms written for the PC. The tool is particularly adept at carrying
-out optimizations of ODE based models to data.
-
-\begin{itemize}
-\item
-  Closed source; Microsoft Windows
-\item
-  \url{http://www.gepasi.org/}
-\end{itemize}
-\paragraph{iBioSim \autocite{myers2009ibiosim}}
-
-Tool for the design and analysis of genetic circuits, with applications
-to both systems and synthetic biology. Models can be constructed
-manually or imported from various databases and then analyzed with a
-variety of ODE and stochastic simulators.
-
-\begin{itemize}
-\item
-  Open source; Linux, Mac OS, Microsoft Windows
-\item
-  (\url{http://www.async.ece.utah.edu/iBioSim/})
-\end{itemize}
-\paragraph{JigCell \autocite{vass2004jigcell}
-\autocite{vass2006jigcell}}
-
-A suite of computational tools with graphical user interfaces that
-includes model building, simulation, and parameter estimation. A unique
-feature of JigCell is its display of data and simulation experiments in
-a spreadsheet format and run in batch mode.
-
-\begin{itemize}
-\item
-  Closed source; Linux, Mac OS, Microsoft Windows
-\item
-  \url{http://jigcell.cs.vt.edu/}
-\end{itemize}
-\paragraph{ProMot \autocite{mirschel2009promot}}
-
-Short for ``process modeling tool'', this is a software package for
-simulating and manipulating models. Some key features are its support of
-modular models, modeling libraries, its own modeling language MDL, and
-graphical capabilities.
-
-\begin{itemize}
-\item
-  Open source; Linux, Microsoft Windows
-\item
-  \url{http://www.mpi-magdeburg.mpg.de/projects/promot}
-\end{itemize}
-\paragraph{SBSI \autocite{adams2013sbsi}}
-
-Provides fitting of model parameters to experimental data, especially on
-models with oscillatory components, as well as standard model editing
-and simulation capabilities.
-
-\begin{itemize}
-\item
-  Open source; Linux, Mac OS, Microsoft Windows
-\item
-  \url{http://www.sbsi.ed.ac.uk/}
-\end{itemize}
-\paragraph{WinSCAMP \autocite{SauroF91} \autocite{SauroScamp93}}
-
-A script based GUI application, which like Gepasi has a long tradition.
-Specialized for time course, steady state and metabolic control analysis
-of ODE based models.
-
-\begin{itemize}
-\item
-  Source available upon request; Windows
-\item
-  \url{http://sbw.kgi.edu/software/winscamp.htm}
-\end{itemize}
 \subsection{Simulation Engines Libraries}
 
 Simulation and modeling is one of the standard approaches to
@@ -1706,28 +1323,3 @@ primary optimizer; this node in turn would farm out the time consuming
 simulation computations to the remaining nodes on the computer. For very
 large models, Grid computing \autocite{GridComputing:Abbas} may be very
 appropriate for solving this kind of problem.
-
-\section{Recommended Resources}
-
-Three main web sources which are of interest to readers of this chapter
-include:
-
-\begin{description}
-\item[\url{http://www.cellml.org} :]
-This is the main CellML site. It has a very rich set of models expressed
-in CellML including specifications for the standard and pointers to
-software toolkits.
-
-\item[\url{http://www.sbml.org} :]
-This is the main SBML site. The site as ample documentation, examples
-illustrating how SBML is and should be used. In addition is has a rich
-set of software tools, in particular libSBML, which allows developers to
-easily add SBML support to their tools.
-
-\item[\url{http://www.sys-bio.org} :]
-This is the main SBW (Systems Biology Workbench) site. The latest
-versions for SBW, developer documentation, example models, screen shots,
-user guides can be obtained from this site. A link to the main
-sourceforge site is given where all the source code for SBW is made
-available.
-\end{description}
