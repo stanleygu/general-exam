@@ -41,6 +41,9 @@ With the advent of modern browsers, HTML5 based web applications are cross-platf
 By virtue of expecting users to have a network connection, web applications may also be more social.
 A recent study \autocite{dabbish2012social} suggests that social networks can increase productivity.
 Dabbish et al. surveyed users of the open software repository GitHub, and found that transparency and collaboration through a web interface promotes user innovation, knowledge sharing, and community building.
+People are social social creatures and exhibit a rich set of inferential behavior when given visible cues through an interface like GitHub.
+The amount of attention a project appears to receive signals its quality.
+Users follow and learn from others that and strive to put out better quality work because their virtual reputation is at stake.
 
 Scientific web applications may also change the way models and results are made available to the scientific community.
 Models are often discovered through journal publications, which contain a text description of the model, static tables and charts of the results, and possibly a supplementary section with data and the encoded model description file in standard format (such as SBML or CellML).
@@ -48,7 +51,50 @@ With the rise of online journals, the viewing application is often the web brows
 The tools developed in this dissertation can allow the model and reproducible simulation results directly embedded or linked into an interactive figure in the article itself.
 
 \section{Specific Results}
-\subsection{Aim 1 - Chapter~\ref{chap:graphene}: Produce a web library for building interactive and graphical applications}
-\subsection{Aim 2 - Chapters~\ref{chap:tidal},~\ref{chap:redox}: Integrate Graphene into new and existing applications}
-\subsection{Aim 3 - Chapters~\ref{chap:carbon},~\ref{chap:engine}: Build server-side architecture for modeling applications}
 
+Before describing this project and the results within the chapters, it is useful to first describe the grand vision of computational modeling in which this work lay the groundwork for.
+
+Part of the inspiration for this vision came from observing the success of transformative consumer computing products, Google Docs for collaborative documents, Amazon EC2 for cloud computing, and GitHub for social coding.
+Google Docs excels how easy the application is to use, no installation is required, all the user needs is a web browser.
+Sharing work and soliciting input from collaborators is also trivial.
+However, modelers require more sophisticated interfaces and functionality than a word processor.
+With EC2, individuals or groups with limited resources can access a large number of computing nodes for a short period of time without needing to invest in a large amount of hardware.
+However, raw computing nodes need configuration before using with bio-modeling software.
+GitHub, as mentioned previously, has been shown to be a boon for the open source software community.
+
+Carbon is building off the success of the Biomodels Repository, but with a focus on an advanced interactive user interface, and active community.
+Since Graphene and Carbon are designed modularly, Biomodels may be able to directly integrate the work here as well.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, page=30, trim=0cm 0cm 14cm 7cm, clip=true]{images/Figures.pdf}
+    \caption{Carbon may be made publicly available, its infrastructure can be scaled horizontally on to parallel nodes.
+      Anyone in the community can view active projects and sign on to use the modeling tools and store their own models.
+      Publications may link directly to models existing within Carbon.}
+    \label{Figure:redox-table-view}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth, page=31, trim=0cm 0cm 17cm 9cm, clip=true]{images/Figures.pdf}
+    \caption{In a private team environment, for instance at a pharmaceutical company, the same modeling can be installed on to a local cluster, providing simulation resources while remaining able to safeguard proprietary commercial information}
+    \label{Figure:redox-table-pinned}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth, page=32, trim=0cm 0cm 17cm 12cm, clip=true]{images/Figures.pdf}
+    \caption{Carbon also works as a standalone desktop installation.}
+    \label{Figure:redox-table-pinned}
+  \end{subfigure}
+  \caption{
+  The long term goal of Carbon is to become a scalable framework which encompasses all the computational tools a modeler needs while also providing the means to establish a social network of modelers.
+  }
+  \label{Figure:redox-table}
+\end{figure}
+
+\subsection{Summary of Chapters}
+
+Chapter~\ref{chap:graphene} is focused on the rationale, features, and developmental details of Graphene, a web framework for building interactive and graphical applications.
+In order to demonstrate that Graphene is indeed useful for quickly building scientific applications and easily integrated into existing ones, Chapters~\ref{chap:tidal} and \ref{chap:redox} will present two web applications that use Graphene, TiDAL and Redox.
+TiDAL is an pre-existing transcription factor regulatory network analysis tool.
+Redox is a newly developed pathway exploration tool, used to identify desirable pathways from a large pool of candidates.
+Finally, in Chapter~\ref{chap:carbon}, a prototype of Carbon is demonstrated, which is a modular framework for hosting applications and isolated workspace environments.
+Here it includes a Graphene based file management and model layout app, along with an IPython Notebook interface that allows for custom scripting and model analysis.
