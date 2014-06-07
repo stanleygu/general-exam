@@ -22,25 +22,25 @@ Each researcher can register and log in to access a suite of scientific apps (Fi
 Currently, the two apps that are included are a model visualization and file management tool called Workspaces (developed by this author with Graphene), and IPython Notebook \autocite{perez2007ipython}.
 
 In Workspaces (Figure~\ref{Figure:carbon-workspaces}), the user can perform a variety of file system manage actions, such as creating new folders and files, either through upload or copy-and-paste.
-All files within the workspace may be viewed and manipulated through a text editor (Figure~\ref{Figures:carbon-workspaces-files}).
+All files within the workspace may be viewed and manipulated through a text editor (Figure~\ref{Figure:carbon-workspaces-files}).
 Model file formats, such as SBML, will also be accompanied with a layout view (Figure~\ref{Figure:carbon-workspaces-model-view}).
 
 \subsection{Collaboration}
 The knowledge required for a project is often distributed among many individuals, including software developers and subject matter experts. \autocite{ragan2013collaborative}
 Although computation can be a language that bridges many disciplines, additional "glue" is often needed to make the requirements mutually comprehensible to diverse members of a project team.
 
-Carbon works as this "glue" through online collaboration, allowing users to work rapidly in a collaborative environment for execution of code within a same programming document, an IPython Notebook, as well as managing any additional viewing files within the workspace.
+Carbon works as this "glue" through online collaboration, allowing users to work rapidly in a collaborative environment for execution of code within the same programming document, an IPython Notebook, as well as managing any additional viewing files within the workspace.
 Workspaces is also provides integration with IPython Notebooks.
 A model file may be easily converted into a notebook file (Figure~\ref{Figure:carbon-workspace-convert-to-ipython}).
 By default, the new notebook filename is based off the original model file.
 
 The newly created notebook is detected immediately by IPython Notebook (Figure~\ref{Figure:carbon-workspace-ipython-view}), as IPython Notebook and Workspaces share the same working directory.
 Within the notebook, helper scripts and functions have already been generated that can be immediately executed to the load and run a simulation of the source model (Figure~\ref{Figure:carbon-ipython-template}).
-In addition, a pre-build interactive simulation widget is built for the loaded model (Figure~\ref{Figure:carbon-ipython-widget}).
+In addition, a pre-built interactive simulation widget is constructed for the loaded model (Figure~\ref{Figure:carbon-ipython-widget}).
 Sliders are created for each kinetic parameter within the model, and upon sliding, the simulation graph is updated with the new values.
 Input boxes are also available for changing start and end simulation times and the number of steps.
 
-A number of python libraries are already installed inside the workspace, including Tellurium, PySCeS, and Pandas.
+A number of python libraries are already installed inside the workspace, including Tellurium \autocite{tellurium2014tellurium} and PySCeS.
 Users may also install any additional libraries that they may need, either through the terminal or using a package manager such as \texttt{pip}, without affecting the environment of other users.
 
 
@@ -50,7 +50,7 @@ Users may also install any additional libraries that they may need, either throu
 Often times, a reader of a journal may wish to run the same simulations specified in the experimental results.
 This may be a rather difficult process of finding the right software, model files, and simulation experiment setup.
 Carbon makes tries to make this process much simpler.
-A desktop client has been developed which allows users to generate URL links directly from Combine Archives \autocite{combine2014archive}
+A desktop client has been developed which allows users to generate URL links directly from Combine Archives. \autocite{combine2014archive}
 Combine Archives are an emerging standardized zip file, meant to contain all the necessary files to required to reproduce a computational experiment (see section~\ref{sec:combine-archive} for more detail about Combine Archives).
 These URLs direct to a Portal landing page that allows the user to open the entire model project on Carbon or locally if they have the necessary software installed (Figure~\ref{Figure:carbon-combine-archive}).
 
@@ -63,7 +63,7 @@ Carbon uses two top level processes a node.js server and a MongoDB database (Doc
 Node.js was selected as the platform because of its high performance and ability to use JavaScript on the server \autocite{tilkov2010node}, which eases development by keeping the same programming language between server and client.
 Carbon also uses the node.js package management system, \texttt{npm}, extensively to management software dependencies and to easily deploy on multiple platforms. \autocite{lerner2011forge}
 The database is primarily used to store user information.
-MongoDB was selected as the database of choice simply because the supporting libraries for integrating node.js are well documented and with an active community.
+MongoDB was selected as the database of choice mainly because the supporting libraries for integrating node.js are well documented and with an active community.
 Figure~\ref{fig:carbon-architecture} provides an overview of the implementation and application flow.
 
 New users register by submitting their name, email, and password.
@@ -101,7 +101,7 @@ http://carbon.sysb.io/redirect?title=test\&format=base64\&archive=aGVsbG8gd29ybG
 \end{lstlisting}
 
 First, the URL path is \texttt{redirect}. The \texttt{redirect} route on the server is designed to specially handle this link format.
-The client is presented with the option to open the archive with Carbon, or if they have the necessary local
+The client is presented with the option to open the archive with Carbon, or locally if they have the required desktop software.
 Query parameters \texttt{title}, \texttt{format}, and \texttt{archive} wholly describe the incoming archive file, which in this example is encoded in base64 (this example string just decodes to "hello world!").
 Hexadecimal encoding is also supported.
 The archive string is decoded by the server and processed by \autocite{sysbio2014sedml2py} to generate python files, which are then converted into IPython Notebook format.
@@ -113,9 +113,9 @@ It is important to note that the server can also be installed as a desktop clien
 Carbon is the culminating part of this work after building underlying tools and gaining experience through the applications described in Chapters \ref{chap:tidal} and \ref{chap:redox}, but much work has yet to be done towards the end goal outlined in Figure~\ref{Figure:carbon-overview}.
 
 The first task will be to add additional social elements, namely, the ability follow other users, and watch, fork, and star projects.
-This would require some additional designs in the user database backend in order to track these relationships, as well as additional user interface work to display activity feeds and present visible cues for these types of actions.
+This would require some additional designs in the user database back end in order to track these relationships, as well as additional user interface work to display activity feeds and present visible cues for these types of actions.
 In order to support forking and pulling mechanism, where users can make a copy of another's project and then request that features be integrated upstream, a git version control back end will be created allow this functionality.
-With this core functionality available, the final step will be to finalize a developer friendly API for Carbon to be easily extended with full ecosystem of plug-and-play style applications.
+With this core functionality available, the final step will be to finalize a developer friendly API for Carbon to be easily extended with a rich ecosystem of plug-and-play style applications.
 
 \begin{figure}
   \centering

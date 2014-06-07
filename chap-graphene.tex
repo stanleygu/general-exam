@@ -10,7 +10,7 @@ Graphene is the one of the key components in the user interfaces of the other ap
 \section{Motivation}
 
 Graphical representations of information are valuable for presenting complex information quickly and clearly. \autocite{newsom2007public, smiciklas2012power, tufte1983visual}
-They can vastly improve comprehension by using graphics to enhance the human visual system’s ability to see patterns and trends. \autocite{heer2010tour, sears2007human}
+They can vastly improve comprehension by using graphics to harness the human visual system’s ability to see patterns and trends. \autocite{heer2010tour, sears2007human}
 
 Modeling standards and open source software packages, as reviewed in  Software in chapter~\ref{chap:background}, have been a boon to the biomedical research community.
 While there are a wide variety of powerful tools that have been developed over the years, there is a distinct lack of web applications.
@@ -21,9 +21,9 @@ Of the 166 free and open source softwares listed, just 37 contain any web capabi
 There are several obstacles to building biomodeling web applications, which may explain the absence of web applications in the biomodeling domain.
 Scientific libraries that most biomodeling software depends on have been intended for desktop use, which can also be used server-side in a web application, but requires additional expertise.
 Furthermore, designing and implementing complex graphical user interfaces (GUIs) on the web is a nontrivial engineering challenge.
-As discussed in section~\ref{sec:html5} HTML was originally designed as a markup language for communicating static pages that contain text and limited amounts of media, while using CSS for styling.
+HTML was originally designed as a markup language for communicating static pages that contain text and limited amounts of media, while using CSS for styling.
 The rise of JavaScript support within browsers allowed web pages to evolve more interactive behaviors, leading eventually to the web applications of today.
-However, JavaScript was originally intended for simple scripts which manipulate the DOM, and this legacy has lead to challenges in scaling increasingly complex JavaScript applications.
+However, JavaScript was originally intended for simple scripts which manipulate the DOM (Document Object Model, the browser's in-memory presentation of the loaded page), and this legacy has lead to challenges in scaling increasingly complex JavaScript applications.
 
 \begin{figure}
   \centering
@@ -228,7 +228,7 @@ The template and controller logic is invoked through the use the \texttt{sg-grap
 Graphene separates the data controller from the view.
 Arguably, this format results in code that is more readable, HTML/SVG is used to declaratively define the view.
 But perhaps more importantly, separation of concerns is achieved and the view is decoupled from data logic.
-Another benefit in the Graphene example is two-way data binding allows the view to be updated when the data changes.
+Another benefit in the Graphene example is two-way data binding, which allows the view to be updated when the data changes.
 This is a non-trivial task to implement for the Raphael example.
 Graphene.js addresses these issues by using a different approach.
 Graphene creates interactive diagrams through two-way-binding of the application data model to a customizable SVG template.

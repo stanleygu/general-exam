@@ -6,7 +6,7 @@
 A software library is only useful if it can enhance or help produce better software applications.
 Thus, the purpose of this chapter is to present the implementation of a Graphene application in visualizing the output of the bioinformatics tool, TiDAL (Time-Dependent Activity Linker).
 This chapter supports the overall aims of this work by providing evidence of the utility of Graphene in producing interactive graphics for browser-based scientific tools.
-The relative ease in which Graphene was integrated into an existing application demonstrates its flexibility and customizability, which also help support its scientific merit.
+The relative ease in which Graphene was integrated into an existing application demonstrates its flexibility and customizability, which also helps support its scientific merit.
 
 \section{Motivation}
 \subsection{Pathogenic infections involve temporal regulatory cascades}
@@ -23,7 +23,7 @@ Determining how these antagonists interact with the host immune system would be 
 TiDAL \autocite{zaslavsky2013reconstruction} is a network reconstruction tool that takes time-series gene expression data and generates a transcription factor regulatory network.
 TiDAL combines time-series expression kinetics and promoter sequence information to connect individual transcriptional regulators in a coherent, temporal, regulatory map. 
 
-Briefly, the TiDAL works by processing gene expression data to determine differential expression, and then analyzing the differentially upregulated genes at each time point to derive time dependent profiles for each associated transcription factor.
+Briefly, TiDAL works by processing gene expression data to determine differential expression, and then analyzing the differentially upregulated genes at each time point to derive time dependent profiles for each associated transcription factor.
 
 TiDAL is available online (Figure \ref{fig:tidal-landing}). 
 Users are free apply the algorithm to uploaded data set or publicly available one from InSilico DB \autocite{coletta2012insilico}.
@@ -81,7 +81,7 @@ To ease interpretation of the results, TiDAL provides several forms of visualiza
 \section{Solution}
 \subsection{Network graph visualization of TIDAL output}
 
-TiDAL uses Graphene for its network visualization (Figure~\ref{fig:tidal-output-graphene}).
+TiDAL uses Graphene for its network visualization (Figure~\ref{Figure:tidal-output-graphene}).
 Nodes in the diagram correspond to individual transcription factors.
 Edges represent predicted regulatory relationships, are encoded as either feedforward (green), feedback (red), or reciprocal (black).
 Time progresses vertically downward by each labeled subgraph. 
@@ -92,7 +92,7 @@ Thus, the layout styling encodes additional dimensions of information to make in
 \subsection{User interaction for network exploration}
 
 Since Graphene creates and binds the underlying result data directly to DOM elements, there are many possibilities for adding interactivity to the user interface that permits a greater level of data exploration.
-Densely connected graphs may be difficult to interpret, thus on mouse hover over nodes, the diagram will dim all nodes and edges that are not the immediately connected to the target transcription factor.
+Densely connected graphs may be difficult to interpret, thus, on mouse hover over nodes, the diagram will dim all nodes and edges that are not the immediately connected to the target transcription factor.
 
 
 \section{Implementation}
@@ -196,10 +196,10 @@ One of the key components of the template is the \texttt{ng-repeat} directive, w
 Statements within double curly braces, \texttt{\{\{value\}\}}, indicates an interpolated value from the scope of the enclosed DOM.
 
 Within the \texttt{<line>} element, the \texttt{ng-repeat} attribute here specifies that a new \texttt{<line>} element is to be created from every value inside the \texttt{imports.edges} object, and for each new line to be bound to a reference to the edge item referred to as \texttt{link}.
-The directive \texttt{ng-attr-*} indicates that the * attribute be added to the element and bound to the value of the interpolated object.
+The directive \texttt{ng-attr-*} indicates that the "*" attribute be added to the element and bound to the value of the interpolated object.
 Thus, each new \texttt{<line>} element will have x1, x2, y1, and y2 values equivalent to the corresponding item in the \texttt{edges} array.
-By using watching functions, layout controller (Appendix~\ref{appendix-tidal-layoutCtrl}), where layout specific logic belongs, is responsible for updating the link values when node positions are changed.
-Node positions may as a result of the force layout function or the user dragging.
+By using watcher functions, the layout controller (Appendix~\ref{appendix-tidal-layoutCtrl}), where layout specific logic belongs, is responsible for updating the link values when node positions are changed.
+Node positions may change as a result of the force layout function or the user dragging.
 Line \texttt{opacity} and \texttt{stroke} attributes are also dependent on the properties of the underlying \texttt{edge} object.
 
 Similarly, nodes are created by binding the \texttt{<rect>} elements to every node object on the DOM scope.
@@ -217,5 +217,5 @@ On \texttt{mouseleave}, all opacities are then restored to their original values
 While core functionality of TiDAL with the Graphene visualization is complete and deployed to the public, there are still plans to further extend features of the layout.
 The next task is to create a searchable input form for users to query and select from the list of genes used in the TiDAL algorithm, which is part of the original data set.
 Selected genes will appear in the time slot that it was first differentially expressed and regulatory edges will be drawn from the associated transcription factor nodes.
-This will help users to see which transcription factors are detected to affect the particular gene of interest to their research.
+This will help users to see which transcription factors are found to affect the particular gene of interest in their research.
 

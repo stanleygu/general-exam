@@ -19,7 +19,7 @@ While traditional fermentation techniques used naturally producing microorganism
 \subsection{The space of candidate pathways is extremely large}
 However, due to the complexity of cellular metabolism, this remains a significant challenge. \autocite{sohn2010genome}
 Large numbers of interacting reactions combined with complex regulation make selecting candidate pathways for metabolic engineering difficult.
-For example, within the KEGG Database \autocite{ogata1999keg} alone, there are nearly 10,000 biochemical reactions and over 17,000 metabolites and small molecules cataloged.
+For example, within the KEGG Database alone, there are nearly 10,000 biochemical reactions and over 17,000 metabolites and small molecules cataloged.
 
 \subsection{Semi-automated pathway selection requires user curation}
 Arzeda is a synthetic biology company that approaches this problem using a unique computational design technology that can narrow down the space of potential reaction pathways.
@@ -30,7 +30,7 @@ However, it still remains a challenge for scientists to pick a handful pathways 
 
 \subsection{Iterative sorting, filtering, and pinning to hone in on desired output}
 
-The Redox approach to obtaining meaningful results from a possibly overwhelming set of solutions is through iterative data filtering and visualization.
+The Redox approach to obtaining meaningful results from a possibly overwhelming set of solutions is through iterative data filtering and visualization (Figure~\ref{Figure:redox-flow}).
 
 The initial step involves loading the data set that contains all definitions for all candidate pathways.
 Each pathway contains definitions for the reactions involved, and each reaction contains definitions for the chemical species involved.
@@ -42,7 +42,7 @@ Pathways of interest may then be pinned, which adds the pathway to the sidebar a
 
 \begin{wrapfigure}{i}{0.35\textwidth}
   \includegraphics[width=0.3\textwidth, page=29,trim=0cm 0cm 18.3cm 0cm, clip=true]{images/Figures.pdf}
-  \caption{}
+  \caption{Redox is designed for iterative sorting, filtering, and analysis. The user provides an input data file, which is parsed into a sortable table. Interesting pathways may be pinned and then visualized, before exporting the final selection of pathways.}
   \label{Figure:redox-flow}
 \end{wrapfigure}
 \subsection{Visualize candidate pathways}
