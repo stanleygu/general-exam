@@ -27,7 +27,7 @@ However, JavaScript was originally intended for simple scripts which manipulate 
 
 \begin{figure}
   \centering
-  \includegraphics[width=\textwidth,natwidth=610,natheight=642]{images/jquery-marketshare.png}
+  \includegraphics[width=0.5\textwidth,natwidth=610,natheight=642]{images/jquery-marketshare.png}
   \caption{Market share client-side JavaScript libraries as of May 2014. \autocite{w3techs2014javascript}}
   \label{fig:jquery-marketshare}
 \end{figure}
@@ -70,7 +70,7 @@ Angular comes with a set of directives, such as \texttt{ng-repeat}, but new ones
 \end{figure}
 
 
-Here we will discuss the differences between the DOMAM/jQuery pattern and Graphene approach, which will help explain the design decisions behind Graphene.
+Here I will discuss the differences between the DOMAM/jQuery pattern and Graphene approach, which will help explain the design decisions behind Graphene.
 Consider this snippet of JavaScript that is used for fetching JSON data from an endpoint:
 
 \begin{lstlisting}[language=JavaScript]
@@ -83,7 +83,7 @@ $.ajax({
 \end{lstlisting}
 
 \texttt{\$.ajax} performs an asynchronous HTTP (Ajax) request, which accepts the location of the data endpoint as \texttt{url} and the callback function as \texttt{success}.
-Upon receiving data, we simply append a new \texttt{<li>} into the portion of the DOM that matches the \texttt{'ul\#log'} CSS selector string.
+Upon receiving data, a new \texttt{<li>} is simply appended into the portion of the DOM that matches the \texttt{'ul\#log'} CSS selector string.
 Thus, the view may look something like this:
 
 \begin{lstlisting}[language=html]

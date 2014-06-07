@@ -188,7 +188,7 @@ of the community, public presentations, and workshop meetings, the
 Microarray Gene Expression Data Society (MGED) outlined the Minimum
 Information About a Microarray Experiment (MIAME) specification
 \autocite{brazma2001minimum} and Microarray Gene Expression Markup
-Language (MAGE-ML) \autocite{spellman2002design}. As we will discuss in
+Language (MAGE-ML) \autocite{spellman2002design}. As discussed in
 the following sections, in many ways, this has become the prototype
 \autocite{quackenbush2006standardizing} for subsequent data annotation
 guidelines in systems biology.
@@ -641,6 +641,14 @@ directly.
 Apart from the mentioned model interchange formats, there are many other
 mediums for representing models. This section will briefly cover several
 additional formats.
+
+\subsubsection{COMBINE Archive}
+\label{sec:combine-archive}
+The COMBINE Archive \autocite{combine2014archive} is a single file containing the various documents (and in the future, references to documents), necessary for the description of a model and all associated data and procedures.
+In essence, it is a single zip file, which along with all the project files also contains a manifest and metadata file.
+The manifest is an XML file and is always located at the root directory of the archive
+It describes the location and type of every file inside the archive.
+The metadata file contains additional clerical information about the various files and archive itself, such as author information and creation date.
 
 \subsubsection{Human Readable Formats}
 
